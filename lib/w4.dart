@@ -46,32 +46,32 @@ class _week4State extends State<week4> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return gmap();
-                  },
-                ));
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15),
-                height: 130,
-                //width: double.infinity,
-                child: Card(
-                  elevation: 30,
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Google Map',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return gmap();
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'Google Map',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
@@ -117,7 +117,7 @@ class _week4State extends State<week4> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'mapp',
+                      'map',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),

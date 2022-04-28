@@ -5,6 +5,7 @@ import 'package:fluttertask/w2.dart';
 import 'package:fluttertask/w3.dart';
 import 'package:fluttertask/w4.dart';
 import 'package:fluttertask/w5.dart';
+import 'package:fluttertask/w6.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -180,33 +181,33 @@ class task extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     Navigator.push(context, MaterialPageRoute(
-                    //       builder: (context) {
-                    //         return week4();
-                    //       },
-                    //     ));
-                    //   },
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(bottom: 15),
-                    //     height: 130,
-                    //     //width: double.infinity,
-                    //     child: Card(
-                    //       elevation: 30,
-                    //       color: Colors.black54,
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(10)),
-                    //       child: Center(
-                    //         child: Text(
-                    //           '      Week-4     ',
-                    //           style:
-                    //           TextStyle(fontSize: 20, color: Colors.white),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return week6();
+                          },
+                        ));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 15),
+                        height: 130,
+                        //width: double.infinity,
+                        child: Card(
+                          elevation: 30,
+                          color: Colors.black54,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              '      Week-6     ',
+                              style:
+                              TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
 
                   ],
                 ),

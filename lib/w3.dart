@@ -4,6 +4,8 @@ import 'package:fluttertask/Week3/3.2.dart';
 import 'package:fluttertask/Week3/3.3.dart';
 import 'package:fluttertask/Week3/callwebservice.dart';
 
+import 'Week3/getdata.dart';
+
 class week3 extends StatefulWidget {
   const week3({Key? key}) : super(key: key);
 
@@ -107,7 +109,7 @@ class _week3State extends State<week3> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return call();
+                    return gdata();
                   },
                 ));
               },

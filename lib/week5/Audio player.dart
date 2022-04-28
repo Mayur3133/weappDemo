@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'customrecord.dart';
 
 class audioply extends StatefulWidget {
   const audioply({Key? key}) : super(key: key);
@@ -15,7 +18,6 @@ class audioply extends StatefulWidget {
 
 class _audioplyState extends State<audioply> {
   Color? bgcolor = Colors.indigo[300];
-
   final OnAudioQuery onaudio = OnAudioQuery();
 
   final AudioPlayer audioplayer = AudioPlayer();
@@ -55,6 +57,17 @@ class _audioplyState extends State<audioply> {
     super.dispose();
   }
 
+  Future<void> deleteFile(File file) async {
+    try {
+      if (await file.exists()) {
+        await file.delete();
+        print("delete successfully");
+      }
+    } catch (e) {
+      print("delete error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isPlayerViewVisible) {
@@ -76,8 +89,8 @@ class _audioplyState extends State<audioply> {
                       onTap: changePlayerViewVisibility,
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: Colors.indigo[400],shape: BoxShape.circle),
-
+                        decoration: BoxDecoration(
+                            color: Colors.indigo[400], shape: BoxShape.circle),
                         child: Icon(
                           Icons.arrow_back_ios_new,
                           color: Colors.white,
@@ -111,10 +124,11 @@ class _audioplyState extends State<audioply> {
                 Column(
                   children: [
                     Container(
+                      height: 10,
                       padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(bottom: 0),
-                      decoration: getRectDecoration(
-                          BorderRadius.circular(20), Offset(2, 2), 2, 0),
+                      margin: EdgeInsets.only(bottom: 10),
+                      // decoration: getRectDecoration(
+                      //     BorderRadius.circular(20), Offset(2, 2), 2, 0),
                       child: StreamBuilder<DurationState>(
                         stream: _durationStateStream,
                         builder: (context, snapshot) {
@@ -126,8 +140,9 @@ class _audioplyState extends State<audioply> {
                           return ProgressBar(
                             progress: progress,
                             total: total,
-                            barHeight: 20,
-                            baseBarColor: bgcolor,
+                            barHeight: 10,
+                            barCapShape: BarCapShape.square,
+                            baseBarColor: Colors.black,
                             progressBarColor: Colors.white70,
                             thumbColor: Colors.white60.withBlue(99),
                             timeLabelTextStyle: TextStyle(
@@ -172,79 +187,140 @@ class _audioplyState extends State<audioply> {
                               ),
                             ],
                           );
-                        })
+                        }),
+                    StreamBuilder<DurationState>(
+                        stream: _durationStateStream,
+                        builder: (context, snapshot) {
+                          final durationState = snapshot.data;
+                          final progress =
+                              durationState?.position ?? Duration.zero;
+                          final total = durationState?.total ?? Duration.zero;
+
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                  child: InkWell(
+                                onTap: () {
+                                  if (audioplayer.hasPrevious) {
+                                    audioplayer.seekToPrevious();
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[400],
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.skip_previous,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              )),
+                              Flexible(
+                                  child: InkWell(
+                                onTap: () async {
+                                  if (audioplayer.position.inSeconds >= 10) {
+                                    await audioplayer.seek(Duration(
+                                        seconds:
+                                            audioplayer.position.inSeconds -
+                                                10));
+                                  } else {
+                                    await audioplayer.seek(Duration.zero);
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[400],
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.keyboard_double_arrow_left_outlined,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              )),
+                              Flexible(
+                                  child: InkWell(
+                                onTap: () {
+                                  if (audioplayer.playing) {
+                                    audioplayer.pause();
+                                  } else {
+                                    if (audioplayer.currentIndex != null) {
+                                      audioplayer.play();
+                                    }
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  margin: EdgeInsets.only(left: 10, right: 10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[400],
+                                      shape: BoxShape.circle),
+                                  child: StreamBuilder(
+                                      stream: audioplayer.playingStream,
+                                      builder: (context, snapshot) {
+                                        var playinState = snapshot.data as bool;
+                                        if (playinState != null &&
+                                            playinState) {
+                                          return Icon(Icons.pause,
+                                              color: Colors.white70, size: 20);
+                                        }
+                                        return Icon(Icons.play_arrow,
+                                            color: Colors.white70, size: 20);
+                                      }),
+                                ),
+                              )),
+                              Flexible(
+                                  child: InkWell(
+                                onTap: () async {
+                                  if (audioplayer.position.inSeconds <=
+                                      total.inSeconds - 9) {
+                                    await audioplayer.seek(Duration(
+                                        seconds:
+                                            audioplayer.position.inSeconds +
+                                                10));
+                                  } else {
+                                    audioplayer.seekToNext();
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[400],
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.keyboard_double_arrow_right_outlined,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              )),
+                              Flexible(
+                                  child: InkWell(
+                                onTap: () {
+                                  if (audioplayer.hasNext) {
+                                    audioplayer.seekToNext();
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[400],
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.skip_next,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              )),
+                            ],
+                          );
+                        }),
                   ],
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20, bottom: 20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                          child: InkWell(
-                        onTap: () {
-                          if (audioplayer.hasPrevious) {
-                            audioplayer.seekToPrevious();
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(color: Colors.indigo[400],shape: BoxShape.circle),
-                          child: Icon(
-                            Icons.skip_previous,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      )),
-                      Flexible(
-                          child: InkWell(
-                        onTap: () {
-                          if (audioplayer.playing) {
-                            audioplayer.pause();
-                          } else {
-                            if (audioplayer.currentIndex != null) {
-                              audioplayer.play();
-                            }
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(color: Colors.indigo[400],shape: BoxShape.circle),
-
-                          child: StreamBuilder(
-                              stream: audioplayer.playingStream,
-                              builder: (context, snapshot) {
-                                bool? playinState = snapshot.data as bool;
-                                if (playinState != null && playinState) {
-                                  return Icon(Icons.pause,
-                                      color: Colors.white70, size: 30);
-                                }
-                                return Icon(Icons.play_arrow,
-                                    color: Colors.white70, size: 30);
-                              }),
-                        ),
-                      )),
-                      Flexible(
-                          child: InkWell(
-                        onTap: () {
-                          if (audioplayer.hasNext) {
-                            audioplayer.seekToNext();
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(color: Colors.indigo[400],shape: BoxShape.circle),
-
-                          child: Icon(
-                            Icons.skip_next,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      )),
-                    ],
-                  ),
                 ),
               ],
             ),
@@ -253,6 +329,14 @@ class _audioplyState extends State<audioply> {
       );
     }
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.mic, color: Colors.black),
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => recordingapp()));
+        },
+      ),
       appBar: AppBar(
         title: Text("Audio Player"),
         elevation: 20,
@@ -301,22 +385,34 @@ class _audioplyState extends State<audioply> {
                         ]),
                     child: ListTile(
                       textColor: Colors.white,
-                      title: Text(item.data![index].title),
+                      title: Text(item.data![index].displayName),
                       subtitle: Text(item.data![index].displayName,
                           style: TextStyle(color: Colors.white60)),
-                      trailing: Icon(Icons.more_vert),
-
-                      leading: Image(image: AssetImage("image/music.jpg"),),
-                        //QueryArtworkWidget(
+                      // trailing: IconButton(
+                      //   onPressed: () {
+                      //     deleteFile(File("storage/emulated/0/Music" +
+                      //         "/${item.data![index].title}"));
+                      //   },
+                      //   icon: Icon(Icons.delete),
+                      // ),
+                      leading: Image(
+                        image: AssetImage("image/music.jpg"),
+                      ),
+                      //QueryArtworkWidget(
                       //     id: item.data![index].id, type: ArtworkType.AUDIO),
                       onTap: () async {
                         changePlayerViewVisibility();
                         // toast(context, "Playing:" + item.data![index].title);
                         // String? uri = item.data![index].uri;
                         // await audioplayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+
+                        // setState(() async {
+                        //
+                        // });
                         await audioplayer.setAudioSource(
                             createplaylist(item.data!),
                             initialIndex: index);
+                        await audioplayer.play();
                       },
                     ));
               },
@@ -362,18 +458,23 @@ class _audioplyState extends State<audioply> {
 
   getDecoration(
       BoxShape shape, Offset offset, double blurRadius, double spreadRadius) {
-    return BoxDecoration(color: bgcolor, shape: shape,image: DecorationImage(image: AssetImage("image/music.jpg"),fit: BoxFit.cover), boxShadow: [
-      BoxShadow(
-          offset: -offset,
-          color: Colors.white70,
-          blurRadius: blurRadius,
-          spreadRadius: spreadRadius),
-      BoxShadow(
-          offset: offset,
-          color: Colors.black,
-          blurRadius: blurRadius,
-          spreadRadius: spreadRadius),
-    ]);
+    return BoxDecoration(
+        color: bgcolor,
+        shape: shape,
+        image: DecorationImage(
+            image: AssetImage("image/music.jpg"), fit: BoxFit.cover),
+        boxShadow: [
+          BoxShadow(
+              offset: -offset,
+              color: Colors.white70,
+              blurRadius: blurRadius,
+              spreadRadius: spreadRadius),
+          BoxShadow(
+              offset: offset,
+              color: Colors.black,
+              blurRadius: blurRadius,
+              spreadRadius: spreadRadius),
+        ]);
   }
 
   BoxDecoration getRectDecoration(BorderRadius borderRadius, Offset offset,
@@ -401,5 +502,3 @@ class DurationState {
 
   Duration position, total;
 }
-
-//codingTony

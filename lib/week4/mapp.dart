@@ -39,8 +39,6 @@ class _MapViewState extends State<MapView> {
   late prefix.PlaceDetails dire;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Method for retrieving the current location
-
   @override
   void initState() {
     super.initState();
@@ -56,215 +54,169 @@ class _MapViewState extends State<MapView> {
       width: width,
       child: Scaffold(
         key: _scaffoldKey,
-        body: Stack(
-          children: <Widget>[
-            // Map View
-            GoogleMap(
-              markers: Set<Marker>.from(markers),
-              initialCameraPosition: _initialLocation,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              mapType: MapType.satellite,
-              zoomGesturesEnabled: true,
-              zoomControlsEnabled: false,
-              polylines: Set<Polyline>.of(polylines.values),
-              onMapCreated: (GoogleMapController controller) {
-                mapController = controller;
-              },
-              onTap: multmrk,
-            ),
-            // Show zoom buttons
-            // SafeArea(
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(left: 10.0),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: <Widget>[
-            //         ClipOval(
-            //           child: Material(
-            //             color: Colors.blue.shade100, // button color
-            //             child: InkWell(
-            //               splashColor: Colors.blue, // inkwell color
-            //               child: SizedBox(
-            //                 width: 50,
-            //                 height: 50,
-            //                 child: Icon(Icons.add),
-            //               ),
-            //               onTap: () {
-            //                 mapController.animateCamera(
-            //                   CameraUpdate.zoomIn(),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ),
-            //         SizedBox(height: 20),
-            //         ClipOval(
-            //           child: Material(
-            //             color: Colors.blue.shade100, // button color
-            //             child: InkWell(
-            //               splashColor: Colors.blue, // inkwell color
-            //               child: SizedBox(
-            //                 width: 50,
-            //                 height: 50,
-            //                 child: Icon(Icons.remove),
-            //               ),
-            //               onTap: () {
-            //                 mapController.animateCamera(
-            //                   CameraUpdate.zoomOut(),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // Show the place input fields & button for
-            // showing the route
-            SafeArea(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
-                    ),
-                    width: width * 0.9,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            'Places',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width - 15,
-                            child: TextField(
-                              onTap: () async {
-                                prefix.Prediction? p =
-                                    await PlacesAutocomplete.show(
-                                        context: context,
-                                        apiKey: googleAPIkey,
-                                        mode: Mode.overlay,
-                                        language: "en",
-                                        types: [],
-                                        strictbounds: false,
-                                        components: [
-                                          prefix.Component(
-                                              prefix.Component.country, "ind")
-                                        ]);
-                                displaystartlocation(p!);
-                              },
-                              focusNode: startAddressFocusNode,
-                              controller: startAddressController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                prefixIcon: Icon(Icons.looks_two),
-                                labelText: "Search other Location",
-                                suffixIcon: Icon(Icons.search_rounded),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width - 15,
-                            child: TextField(
-                              onTap: () async {
-                                prefix.Prediction? p =
-                                    await PlacesAutocomplete.show(
-                                        context: context,
-                                        apiKey: googleAPIkey,
-                                        mode: Mode.overlay,
-                                        language: "en",
-                                        types: [],
-                                        strictbounds: false,
-                                        components: [
-                                          prefix.Component(
-                                              prefix.Component.country, "ind")
-                                        ]);
-                                displayPredictionArrival(p!);
-                              },
-                              focusNode: destinationAddressFocusNode,
-                              controller: destinationAddressController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                prefixIcon: Icon(Icons.looks_two),
-                                labelText: "Search other Location",
-                                suffixIcon: Icon(Icons.search_rounded),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+        body: GestureDetector( onTap: () {
+
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+          child: Stack(
+            children: <Widget>[
+              // Map View
+              GoogleMap(
+                markers: Set<Marker>.from(markers),
+                initialCameraPosition: _initialLocation,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                mapType: MapType.satellite,
+                zoomGesturesEnabled: true,
+                zoomControlsEnabled: false,
+                polylines: Set<Polyline>.of(polylines.values),
+                onMapCreated: (GoogleMapController controller) {
+                  mapController = controller;
+                },
+                onTap: multmrk,
               ),
-            ),
-            // Show current location button
-            SafeArea(
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
-                  child: ClipOval(
-                    child: Material(
-                      color: Colors.white70, // button color
-                      child: InkWell(
-                        splashColor: Colors.white70, // inkwell color
-                        child: SizedBox(
-                          width: 56,
-                          height: 56,
-                          child: SizedBox(child: Icon(Icons.my_location)),
+
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
                         ),
-                        onTap: () async {
-                          _currentPosition = await _determinePosition();
-                          mapController.animateCamera(
-                              CameraUpdate.newCameraPosition(CameraPosition(
-                                  target: LatLng(_currentPosition!.latitude,
-                                      _currentPosition!.longitude),
-                                  zoom: 14)));
-                          markers.clear();
-                          polylines.clear();
-
-                          markers.add(Marker(
-                              markerId: MarkerId('currentLocation'),
-                              position: LatLng(_currentPosition!.latitude,
-                                  _currentPosition!.longitude)));
-
-                          setState(() {});
-                        },
+                      ),
+                      width: width * 0.9,
+                      height: 180,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Direction',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            //  SizedBox(height: 5),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              alignment: Alignment.center,
+                              margin:
+                                  EdgeInsets.only(top: 5, left: 10, right: 10),
+                              width: MediaQuery.of(context).size.width - 15,
+                              child: TextField(
+                                onTap: () async {
+                                  prefix.Prediction? p =
+                                      await PlacesAutocomplete.show(
+                                          context: context,
+                                          apiKey: googleAPIkey,
+                                          mode: Mode.fullscreen,
+                                          language: "en",
+                                          types: [],
+                                          strictbounds: false,
+                                          components: [
+                                            prefix.Component(
+                                                prefix.Component.country, "ind")
+                                          ]);
+                                  displaystartlocation(p!);
+                                },
+                                focusNode: startAddressFocusNode,
+                                controller: startAddressController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    prefixIcon: Icon(Icons.search_rounded),
+                                    hintText: "Start Point"),
+                              ),
+                            ),
+                            //SizedBox(height: 2),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              alignment: Alignment.center,
+                              margin:
+                                  EdgeInsets.only(top: 5, left: 10, right: 10),
+                              width: MediaQuery.of(context).size.width - 15,
+                              child: TextField(
+                                onTap: () async {
+                                  prefix.Prediction? p =
+                                      await PlacesAutocomplete.show(
+                                          context: context,
+                                          apiKey: googleAPIkey,
+                                          mode: Mode.fullscreen,
+                                          language: "en",
+                                          types: [],
+                                          strictbounds: false,
+                                          components: [
+                                            prefix.Component(
+                                                prefix.Component.country, "ind")
+                                          ]);
+                                  displayPredictionArrival(p!);
+                                },
+                                focusNode: destinationAddressFocusNode,
+                                controller: destinationAddressController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    prefixIcon: Icon(Icons.search_rounded),
+                                    hintText: "End Point"),
+                              ),
+                            ),
+                            //  SizedBox(height: 5),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.white70, // button color
+                        child: InkWell(
+                          splashColor: Colors.white70, // inkwell color
+                          child: SizedBox(
+                            width: 56,
+                            height: 56,
+                            child: SizedBox(child: Icon(Icons.my_location)),
+                          ),
+                          onTap: () async {
+                            _currentPosition = await _determinePosition();
+                            mapController.animateCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: LatLng(_currentPosition!.latitude,
+                                        _currentPosition!.longitude),
+                                    zoom: 14)));
+                            markers.clear();
+                            polylines.clear();
+
+                            markers.add(Marker(
+                                markerId: MarkerId('currentLocation'),
+                                position: LatLng(_currentPosition!.latitude,
+                                    _currentPosition!.longitude)));
+
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -287,7 +239,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId('DirectionMarker'),
         position: LatLng(lat, lng),
         infoWindow: InfoWindow(
-          title: detail.result.name,
+          title: "${detail.result.formattedAddress},${lat},${lng}",
         ),
       ));
 
@@ -304,7 +256,7 @@ class _MapViewState extends State<MapView> {
       final lng = detail.result.geometry!.location.lng;
 
       arrival = detail.result;
-      startAddressController.text = detail.result.name;
+      startAddressController.text = detail.result.formattedAddress!;
       mapController.animateCamera(
         CameraUpdate.newCameraPosition(
             CameraPosition(target: LatLng(lat, lng), zoom: 10.0)),
@@ -314,7 +266,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId('arrivalMarker'),
         position: LatLng(lat, lng),
         infoWindow: InfoWindow(
-          title: detail.result.name,
+          title: "${detail.result.formattedAddress},${lat},${lng}",
         ),
       ));
 
@@ -348,7 +300,7 @@ class _MapViewState extends State<MapView> {
     PolylineId id = PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
-      color: Colors.deepPurpleAccent,
+      color: Colors.red,
       points: polylineCoordinates,
       width: 8,
     );

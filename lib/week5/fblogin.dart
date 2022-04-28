@@ -17,6 +17,7 @@ class _fbloginState extends State<fblogin> {
         title: Text("Social Login"),
       ),
       body: fbloginui(),
+
     );
   }
 

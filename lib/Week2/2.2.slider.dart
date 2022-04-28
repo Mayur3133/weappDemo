@@ -33,21 +33,31 @@ class _sldState extends State<sld> {
         children: [
           Container(
               padding: EdgeInsets.only(left: 30, right: 30, top: 200),
-              child: FlutterSlider(
-                values: [0],
-                min: 0,
-                max: 100,
-                handler: FlutterSliderHandler(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage('image/sldr.jpg')))),
-              )
+              child:  SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+
+                  trackHeight: 5.0,
+
+
+                  valueIndicatorTextStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                child: Slider(
+                  value: vlu,
+                  min: 1,
+                  max: 100,
+                  onChanged: (double valu) {
+                    setState(() {
+                      vlu = valu;
+                    });
+                  },
+                ),
+              ),
           ),
-          // Text(
-          //   'Size:${vlu.toInt()}',
-          // ),
+          Text(
+            'Size:${vlu.toInt()}',
+          ),
           Container(
             padding: EdgeInsets.only(left: 30, right: 30, top: 50),
             child: RangeSlider(
@@ -68,7 +78,7 @@ class _sldState extends State<sld> {
             ),
           ),
           Text(
-            'Size: ${stvlu.toInt()} \n  Endsize: ${endvlu.toInt()}',
+            'Size: ${stvlu.toInt()} \nEndsize: ${endvlu.toInt()}',
           ),
         ],
       ),

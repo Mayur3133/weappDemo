@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertask/week5/LOGIN.dart';
+import 'package:fluttertask/week5/Video/video_page.dart';
+import 'package:fluttertask/week5/customrecord.dart';
+import 'package:fluttertask/week5/dash.dart';
+import 'package:fluttertask/week5/gogglelogin.dart';
+import 'package:fluttertask/week5/social.dart';
+import 'package:fluttertask/week5/videoplayer.dart';
 import 'week5/Audio player.dart';
 
 class week5 extends StatefulWidget {
@@ -44,11 +50,39 @@ class _week5State extends State<week5> {
                 ),
               ),
             ),
+
+
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return SocialLogin();
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'Social Login',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return SocialLogin();
+                    return Googlelogin();
                   },
                 ));
               },
@@ -63,13 +97,66 @@ class _week5State extends State<week5> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Social Login',
+                      'Social',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return VideoPage();
+                  },
+                ));
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15),
+                height: 130,
+                //width: double.infinity,
+                child: Card(
+                  elevation: 30,
+                  color: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Video Player',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return RecorderView();
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'recordiiing',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
           ],
         ),
