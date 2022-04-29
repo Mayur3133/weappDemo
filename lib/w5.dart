@@ -108,7 +108,7 @@ class _week5State extends State<week5> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return VideoPage();
+                    return videoply();
                   },
                 ));
               },

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'week6/direct share.dart';
 import 'week6/sharing.dart';
 
 class week6 extends StatefulWidget {
@@ -23,7 +24,7 @@ class _week6State extends State<week6> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return Container();
+                    return share();
                   },
                 ));
               },
@@ -39,6 +40,32 @@ class _week6State extends State<week6> {
                   child: Center(
                     child: Text(
                       'Share',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return defaultsharing();
+                  },
+                ));
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15),
+                height: 130,
+                //width: double.infinity,
+                child: Card(
+                  elevation: 30,
+                  color: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Default Share',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),

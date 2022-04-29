@@ -81,6 +81,7 @@ dependencies:
   share_plus:
   image_preview:
   file_picker:
+  flutter_share_me:
 dev_dependencies:
   flutter_test:
     sdk: flutter
