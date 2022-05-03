@@ -110,7 +110,7 @@ class _updState extends State<upd> {
                         temailerror = "please enter valid Email";
                       } else {
                         data().dataupdate(database!, userid, Email, Password);
-                       Navigator.pop(context);
+                       Navigator.pop(context,true);
                       }
                     });
                   },

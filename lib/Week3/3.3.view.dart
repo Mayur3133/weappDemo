@@ -52,12 +52,20 @@ class _viewpageState extends State<viewpage> {
                                   content: Text("please select"),
                                   actions: [
                                     ElevatedButton(
-                                        onPressed: () {
-
+                                        onPressed: () async {
                                           Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                            return upd(lst[index]);
-                                          },));
+                                          var abc = await Navigator.push(
+                                              context, MaterialPageRoute(
+                                            builder: (context) {
+                                              return upd(lst[index]);
+                                            },
+                                          ));
+
+                                          if (abc == true) {
+                                            setState(() {
+                                              mydata;
+                                            });
+                                          }
                                         },
                                         child: Text("Update")),
                                     ElevatedButton(

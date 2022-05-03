@@ -82,6 +82,9 @@ dependencies:
   image_preview:
   file_picker:
   flutter_share_me:
+  facebook_audience_network:
+  google_mobile_ads:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

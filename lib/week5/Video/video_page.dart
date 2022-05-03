@@ -73,7 +73,7 @@ class _videoplyState extends State<videoply> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            videoplyscreen(file: assets[index].file),
+                            videoplyscreen(assets:assets,curnt:index),
                       ),
                     );
                   },

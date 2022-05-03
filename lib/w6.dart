@@ -1,5 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertask/week6/admob_ads.dart';
+import 'package:fluttertask/week6/adrwd.dart';
+import 'package:fluttertask/week6/fb_ads.dart';
+import 'package:fluttertask/week6/reward.dart';
+import 'package:provider/provider.dart';
 
 import 'week6/direct share.dart';
 import 'week6/sharing.dart';
@@ -72,6 +76,89 @@ class _week6State extends State<week6> {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return AdsPage();
+                  },
+                ));
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15),
+                height: 130,
+                //width: double.infinity,
+                child: Card(
+                  elevation: 30,
+                  color: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Facebook ads',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return admobadd();
+                  },
+                ));
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15),
+                height: 130,
+                //width: double.infinity,
+                child: Card(
+                  elevation: 30,
+                  color: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Admob',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return
+            //           ChangeNotifierProvider(
+            //             create: (BuildContext context) => AdmobHelper(),
+            //             child:
+            //             RewardAdsExample(),
+            //         );
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'Admobreward',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
