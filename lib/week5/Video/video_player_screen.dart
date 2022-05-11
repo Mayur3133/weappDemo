@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
@@ -24,6 +25,8 @@ class _videoplyscreenState extends State<videoplyscreen> {
   bool tap = true;
   bool fullscreen = true;
 
+  int ind = 0;
+
   abc() {
     if (mounted) {
       setState(() {});
@@ -32,7 +35,7 @@ class _videoplyscreenState extends State<videoplyscreen> {
 
   @override
   void initState() {
-    initvideo();
+    initvideo(0);
     super.initState();
   }
 
@@ -44,26 +47,15 @@ class _videoplyscreenState extends State<videoplyscreen> {
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     videocontroller!.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
-  playnext() {
-    videocontroller = null;
-    widget.curnt++;
-    abc();
-    initvideo();
-  }
-
-  playprevious() {
-    videocontroller = null;
-    widget.curnt--;
-    abc();
-    initvideo();
-  }
-
-  initvideo() async {
-    final video = await widget.assets[widget.curnt].file;
+  initvideo(int ind) async {
+    final video = await widget.assets[widget.curnt + ind].file;
     videocontroller = VideoPlayerController.file(video!);
     abc();
     videocontroller!.addListener(
@@ -87,220 +79,193 @@ class _videoplyscreenState extends State<videoplyscreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            videocontroller == null
-                ? Container()
-                : Center(
-                    child: videocontroller!.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: videocontroller!.value.aspectRatio,
-                            child: Stack(
+            Center(
+              child: videocontroller!.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: videocontroller!.value.aspectRatio,
+                      child: VideoPlayer(videocontroller!),
+                    )
+                  : Container(
+                      // child: Text(
+                      //   widget.file.toString(),
+                      //   style: TextStyle(color: Colors.white),
+                      // ),
+                      ),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (tap) {
+                  tap = false;
+                  abc();
+                } else {
+                  tap = true;
+                  abc();
+                }
+              },
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+            tap
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        // color: Colors.red,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            //SizedBox(height:40),
+                            Container(
+                              // color: Colors.white,
+                              height: 10,
+                              width: 350,
+                              padding: EdgeInsets.zero,
+                              margin: EdgeInsets.only(bottom: 10),
+
+                              child: StreamBuilder<DurationState>(
+                                builder: (context, snapshot) {
+                                  final durationState = snapshot.data;
+                                  final progress =
+                                      videocontroller!.value.position;
+                                  final total = videocontroller!.value.duration;
+                                  return ProgressBar(
+                                    progress: progress,
+                                    total: total,
+                                    barHeight: 2,
+                                    barCapShape: BarCapShape.square,
+                                    baseBarColor: Colors.white,
+                                    progressBarColor: Colors.blue,
+                                    thumbColor: Colors.white60.withBlue(99),
+                                    timeLabelTextStyle: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                    onSeek: (duration) {
+                                      videocontroller!.seekTo(duration);
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                VideoPlayer(videocontroller!),
-                                GestureDetector(
-                                  onTap: () {
-                                    if (tap) {
-                                      tap = false;
-                                      abc();
+                                IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Duration currentPosition =
+                                        videocontroller!.value.position;
+                                    Duration targetPosition =
+                                        currentPosition - Duration(seconds: 10);
+                                    videocontroller!.seekTo(targetPosition);
+
+                                    abc();
+                                  },
+                                  icon: Icon(Icons.rotate_left_outlined),
+                                ),
+                                IconButton(
+                                  color: Colors.white,
+                                  onPressed: () async {
+                                    if (widget.curnt + ind == 0) {
+                                      log("no more previeus videos");
+                                      log("${ind}");
                                     } else {
-                                      tap = true;
-                                      abc();
+                                      await videocontroller!.dispose();
+                                      log("${widget.curnt}");
+                                      ind--;
+                                      log("${ind}");
+                                      log("${widget.curnt + ind}");
+                                      await initvideo(ind);
                                     }
                                   },
-                                  child: Container(
-                                    color: Colors.transparent,
+                                  icon: Icon(Icons.skip_previous),
+                                ),
+                                IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    videocontroller!.value.isPlaying
+                                        ? videocontroller!.pause()
+                                        : videocontroller!.play();
+                                    abc();
+                                  },
+                                  icon: Icon(
+                                    videocontroller!.value.isPlaying
+                                        ? Icons.pause
+                                        : Icons.play_arrow,
                                   ),
                                 ),
-                                tap
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            // color: Colors.red,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                //SizedBox(height:40),
-                                                Container(
-                                                  // color: Colors.white,
-                                                  height: 10,
-                                                  width: 350,
-                                                  padding: EdgeInsets.zero,
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 10),
+                                IconButton(
+                                  color: Colors.white,
+                                  onPressed: () async {
+                                    if (widget.assets.length ==
+                                        widget.curnt + ind + 1) {
+                                      log("no more next videos");
+                                      log("${ind}");
+                                    } else {
+                                      await videocontroller!.dispose();
+                                      ind++;
+                                      await initvideo(ind);
+                                    }
+                                    // playnext();
+                                    // abc();
+                                  },
+                                  icon: Icon(
+                                    Icons.skip_next,
+                                  ),
+                                ),
+                                IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Duration currentPosition =
+                                        videocontroller!.value.position;
+                                    Duration targetPosition =
+                                        currentPosition + Duration(seconds: 10);
+                                    videocontroller!.seekTo(targetPosition);
 
-                                                  child: StreamBuilder<
-                                                      DurationState>(
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      final durationState =
-                                                          snapshot.data;
-                                                      final progress =
-                                                          videocontroller!
-                                                              .value.position;
-                                                      final total =
-                                                          videocontroller!
-                                                              .value.duration;
-                                                      return ProgressBar(
-                                                        progress: progress,
-                                                        total: total,
-                                                        barHeight: 2,
-                                                        barCapShape:
-                                                            BarCapShape.square,
-                                                        baseBarColor:
-                                                            Colors.white,
-                                                        progressBarColor:
-                                                            Colors.blue,
-                                                        thumbColor: Colors
-                                                            .white60
-                                                            .withBlue(99),
-                                                        timeLabelTextStyle:
-                                                            TextStyle(
-                                                          fontSize: 10,
-                                                        ),
-                                                        onSeek: (duration) {
-                                                          videocontroller!
-                                                              .seekTo(duration);
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
+                                    abc();
+                                  },
+                                  icon: Icon(Icons.rotate_right_outlined),
+                                ),
+                                if (fullscreen)
+                                  IconButton(
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      SystemChrome.setPreferredOrientations(
+                                          [DeviceOrientation.landscapeRight]);
+                                      SystemChrome.setEnabledSystemUIMode(
+                                          SystemUiMode.leanBack);
+                                      fullscreen = false;
+                                      abc();
+                                    },
+                                    icon: Icon(Icons.fullscreen),
+                                  )
+                                else
+                                  IconButton(
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      SystemChrome.setPreferredOrientations(
+                                          [DeviceOrientation.portraitUp]);
+                                      SystemChrome.setEnabledSystemUIMode(
+                                          SystemUiMode.manual,
+                                          overlays: SystemUiOverlay.values);
 
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    IconButton(
-                                                      color: Colors.white,
-                                                      onPressed: () {
-                                                        Duration
-                                                            currentPosition =
-                                                            videocontroller!
-                                                                .value.position;
-                                                        Duration
-                                                            targetPosition =
-                                                            currentPosition -
-                                                                Duration(
-                                                                    seconds:
-                                                                        10);
-                                                        videocontroller!.seekTo(
-                                                            targetPosition);
-
-                                                        abc();
-                                                      },
-                                                      icon: Icon(Icons
-                                                          .rotate_left_outlined),
-                                                    ),
-                                                    IconButton(
-                                                      color: Colors.white,
-                                                      onPressed: () {
-                                                        playprevious();
-                                                        abc();
-                                                      },
-                                                      icon: Icon(
-                                                          Icons.skip_previous),
-                                                    ),
-                                                    IconButton(
-                                                      color: Colors.white,
-                                                      onPressed: () {
-                                                        videocontroller!
-                                                                .value.isPlaying
-                                                            ? videocontroller!
-                                                                .pause()
-                                                            : videocontroller!
-                                                                .play();
-                                                        abc();
-                                                      },
-                                                      icon: Icon(
-                                                        videocontroller!
-                                                                .value.isPlaying
-                                                            ? Icons.pause
-                                                            : Icons.play_arrow,
-                                                      ),
-                                                    ),
-                                                    IconButton(
-                                                      color: Colors.white,
-                                                      onPressed: () {
-                                                        playnext();
-                                                        abc();
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.skip_next,
-                                                      ),
-                                                    ),
-                                                    IconButton(
-                                                      color: Colors.white,
-                                                      onPressed: () {
-                                                        Duration
-                                                            currentPosition =
-                                                            videocontroller!
-                                                                .value.position;
-                                                        Duration
-                                                            targetPosition =
-                                                            currentPosition +
-                                                                Duration(
-                                                                    seconds:
-                                                                        10);
-                                                        videocontroller!.seekTo(
-                                                            targetPosition);
-
-                                                        abc();
-                                                      },
-                                                      icon: Icon(Icons
-                                                          .rotate_right_outlined),
-                                                    ),
-                                                    if (fullscreen)
-                                                      IconButton(
-                                                        color: Colors.white,
-                                                        onPressed: () {
-                                                          SystemChrome
-                                                              .setPreferredOrientations([
-                                                            DeviceOrientation
-                                                                .landscapeRight
-                                                          ]);
-                                                          fullscreen = false;
-                                                          abc();
-                                                        },
-                                                        icon: Icon(
-                                                            Icons.fullscreen),
-                                                      )
-                                                    else
-                                                      IconButton(
-                                                        color: Colors.white,
-                                                        onPressed: () {
-                                                          SystemChrome
-                                                              .setPreferredOrientations([
-                                                            DeviceOrientation
-                                                                .portraitUp
-                                                          ]);
-                                                          fullscreen = true;
-                                                          abc();
-                                                        },
-                                                        icon: Icon(Icons
-                                                            .fullscreen_exit),
-                                                      )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Container(),
+                                      fullscreen = true;
+                                      abc();
+                                    },
+                                    icon: Icon(Icons.fullscreen_exit),
+                                  )
                               ],
                             ),
-                          )
-                        : Container(
-                            // child: Text(
-                            //   widget.file.toString(),
-                            //   style: TextStyle(color: Colors.white),
-                            // ),
-                            ),
-                  ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
+        backgroundColor: Colors.black,
       ),
     );
   }

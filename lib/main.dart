@@ -1,13 +1,25 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertask/w1.dart';
 import 'package:fluttertask/w2.dart';
 import 'package:fluttertask/w3.dart';
 import 'package:fluttertask/w4.dart';
 import 'package:fluttertask/w5.dart';
 import 'package:fluttertask/w6.dart';
+import 'package:fluttertask/w7.dart';
 
-void main() {
+import 'W8.dart';
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  Stripe.publishableKey =
+      "pk_test_51KxjzaSCwVxg8MzfxvAXbttahWOqeYCRlc71pGCnhv0zyBR0CGZIDpqRVa0tDNFPkHa23WZzTsMnDnclMKnRs35E00USnYzX4q";
+  // await Stripe.instance.applySettings();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: task(),
@@ -44,19 +56,16 @@ class task extends StatelessWidget {
                       },
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black54,
+                        ),
                         height: 130,
                         // width: double.infinity,
-                        child: Card(
-                          elevation: 30,
-                          color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-1      ',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        child: Center(
+                          child: Text(
+                            '      Week-1      ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
@@ -70,21 +79,17 @@ class task extends StatelessWidget {
                         ));
                       },
                       child: Container(
-
                         margin: EdgeInsets.only(bottom: 15),
                         height: 130,
-                        //width: double.infinity,
-                        child: Card(
-                          elevation: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-2      ',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-2      ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
@@ -105,18 +110,15 @@ class task extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
                         height: 130,
-                        //width: double.infinity,
-                        child: Card(
-                          elevation: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-3      ',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-3      ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
@@ -132,23 +134,19 @@ class task extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
                         height: 130,
-                        //width: double.infinity,
-                        child: Card(
-                          elevation: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-4     ',
-                              style:
-                              TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-4     ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-
                   ],
                 ),
                 Row(
@@ -165,18 +163,15 @@ class task extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
                         height: 130,
-                        //width: double.infinity,
-                        child: Card(
-                          elevation: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-5      ',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-5      ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
@@ -192,23 +187,72 @@ class task extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
                         height: 130,
-                        //width: double.infinity,
-                        child: Card(
-                          elevation: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              '      Week-6     ',
-                              style:
-                              TextStyle(fontSize: 20, color: Colors.white),
-                            ),
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-6     ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return week7();
+                          },
+                        ));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 15),
+                        height: 130,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black54,
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-7      ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return week8();
+                          },
+                        ));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 15),
+                        height: 130,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black54,
+                        ),
+                        //width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            '      Week-8     ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],

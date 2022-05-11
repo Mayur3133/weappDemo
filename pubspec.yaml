@@ -55,7 +55,7 @@ dependencies:
   google_api_headers:
   google_directions_api:
   mailer:
-  provider: 
+  provider:
   firebase_core:
   firebase_auth: ^3.3.14
   google_sign_in: ^5.3.0
@@ -67,7 +67,6 @@ dependencies:
   just_audio: ^0.9.20
   audio_video_progress_bar:
   rxdart:
-  flutter_audio_recorder2:
   path_provider:
   record_mp3:
   video_player:
@@ -79,12 +78,18 @@ dependencies:
   dart_vlc:
   flutter_sound: ^9.2.9
   share_plus:
+  change_app_package_name:
   image_preview:
   file_picker:
   flutter_share_me:
   facebook_audience_network:
   google_mobile_ads:
-
+  camera:
+  flutter_social_content_share: ^1.0.2
+  pull_to_refresh:
+  path:
+  flutter_inapp_purchase:
+  flutter_stripe:
 dev_dependencies:
   flutter_test:
     sdk: flutter

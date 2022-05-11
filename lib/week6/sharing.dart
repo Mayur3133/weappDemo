@@ -18,13 +18,9 @@ class _shareState extends State<share> {
   final ImagePicker _picker = ImagePicker();
   XFile? photo;
 
-
-
   Future<void> click(socialsharing share) async {
-    String msg =
-        'Flutter share is great!!\n Check out full example at https://pub.dev/packages/flutter_share_me';
     String url =
-        'https://images.unsplash.com/photo-1610878180933-123728745d22?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80';
+        'https://staticg.sportskeeda.com/wp-content/uploads/2013/06/stock-1782043-1024x682.jpg';
 
     String? response;
     final FlutterShareMe flutterShareMe = FlutterShareMe();
@@ -40,7 +36,8 @@ class _shareState extends State<share> {
         if (shareText.text.isNotEmpty) {
           response = await flutterShareMe.shareToTwitter(msg: shareText.text);
         } else {
-          Fluttertoast.showToast(msg: "Please enter message",backgroundColor: Colors.black26);
+          Fluttertoast.showToast(
+              msg: "Please enter message", backgroundColor: Colors.black26);
         }
         break;
       case socialsharing.whatsapp:
@@ -55,7 +52,7 @@ class _shareState extends State<share> {
       case socialsharing.instagram:
         if (photo != null) {
           response =
-          await flutterShareMe.shareToInstagram(filePath: photo!.path);
+              await flutterShareMe.shareToInstagram(filePath: photo!.path);
         } else {
           Fluttertoast.showToast(msg: "Please upload image");
         }
@@ -63,6 +60,7 @@ class _shareState extends State<share> {
     }
     debugPrint(response);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,11 +106,11 @@ class _shareState extends State<share> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(70),
+              padding: const EdgeInsets.only(top: 80, left: 100, right: 80),
               child: Row(
                 children: [
                   IconButton(
-                    iconSize: 50,
+                      iconSize: 50,
                       color: Colors.blue,
                       onPressed: () => click(socialsharing.facebook),
                       icon: Icon(FontAwesomeIcons.facebook)),
@@ -121,11 +119,11 @@ class _shareState extends State<share> {
                       color: Colors.pinkAccent,
                       onPressed: () => click(socialsharing.instagram),
                       icon: Icon(FontAwesomeIcons.instagram)),
-                  IconButton(
-                      iconSize: 50,
-                      color: Colors.blue,
-                      onPressed: () => click(socialsharing.twitter),
-                      icon: Icon(FontAwesomeIcons.twitter)),
+                  // IconButton(
+                  //     iconSize: 50,
+                  //     color: Colors.blue,
+                  //     onPressed: () => click(socialsharing.twitter),
+                  //     icon: Icon(FontAwesomeIcons.twitter)),
                   IconButton(
                       iconSize: 50,
                       color: Colors.green,
@@ -139,8 +137,6 @@ class _shareState extends State<share> {
       ),
     );
   }
-
-
 }
 
 enum socialsharing { facebook, whatsapp, twitter, instagram }

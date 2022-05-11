@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertask/week6/admob_ads.dart';
-import 'package:fluttertask/week6/fb_ads.dart';
+import 'package:fluttertask/Week7/Camera/camera.dart';
+import 'package:fluttertask/Week8/animation.dart';
 
-import 'week6/direct share.dart';
-import 'week6/sharing.dart';
+import 'Week7/in app purchase.dart';
+import 'Week7/payment gateway.dart';
+import 'Week7/pull_to_refresh.dart';
 
-class week6 extends StatefulWidget {
-  const week6({Key? key}) : super(key: key);
+class week7 extends StatefulWidget {
+  const week7({Key? key}) : super(key: key);
 
   @override
-  State<week6> createState() => _week6State();
+  State<week7> createState() => _week7State();
 }
 
-class _week6State extends State<week6> {
+class _week7State extends State<week7> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Week-6")),
+      appBar: AppBar(title: Text("week-7")),
       body: Container(
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 100, vertical: 50),
@@ -25,7 +26,7 @@ class _week6State extends State<week6> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return share();
+                    return cam();
                   },
                 ));
               },
@@ -40,7 +41,7 @@ class _week6State extends State<week6> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Share',
+                      'Camera',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
@@ -51,7 +52,7 @@ class _week6State extends State<week6> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return defaultsharing();
+                    return UserList();
                   },
                 ));
               },
@@ -66,7 +67,7 @@ class _week6State extends State<week6> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Default Share',
+                      'Pull to refresh',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
@@ -77,7 +78,7 @@ class _week6State extends State<week6> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return AdsPage();
+                    return InApp();
                   },
                 ));
               },
@@ -92,33 +93,7 @@ class _week6State extends State<week6> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Facebook ads',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return admobadd();
-                  },
-                ));
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15),
-                height: 130,
-                //width: double.infinity,
-                child: Card(
-                  elevation: 30,
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Admob',
+                      'In app Purchase',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
@@ -129,12 +104,7 @@ class _week6State extends State<week6> {
             //   onTap: () {
             //     Navigator.push(context, MaterialPageRoute(
             //       builder: (context) {
-            //         return
-            //           ChangeNotifierProvider(
-            //             create: (BuildContext context) => AdmobHelper(),
-            //             child:
-            //             RewardAdsExample(),
-            //         );
+            //         return paymentgtw();
             //       },
             //     ));
             //   },
@@ -149,13 +119,14 @@ class _week6State extends State<week6> {
             //           borderRadius: BorderRadius.circular(10)),
             //       child: Center(
             //         child: Text(
-            //           'Admobreward',
+            //           'Payment gateway',
             //           style: TextStyle(fontSize: 20, color: Colors.white),
             //         ),
             //       ),
             //     ),
             //   ),
             // ),
+
           ],
         ),
       ),

@@ -50,16 +50,28 @@ class _defaultsharingState extends State<defaultsharing> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 50, left: 10, right: 10),
+                child: TextField(
+                  controller: shareText,
+                  cursorColor: Colors.grey,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () async {
-                  if (photo == null) {
+                  if (photo != null) {
+                    await Share.shareFiles([photo!.path], text: shareText.text);
+                  } else if (shareText.text.isNotEmpty) {
+                    await Share.share(shareText.text);
+                  } else {
                     Fluttertoast.showToast(
                         msg: "Please select image",
                         backgroundColor: Colors.black26);
                   }
-                  ;
-                  await Share.shareFiles([photo!.path], text: shareText.text);
                 },
                 child: Text("Share"),
               ),

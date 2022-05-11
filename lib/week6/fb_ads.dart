@@ -15,7 +15,7 @@ class AdsPage extends StatefulWidget {
 class AdsPageState extends State<AdsPage> {
   bool _isInterstitialAdLoaded = false;
   bool _isRewardedAdLoaded = false;
-
+  int point=0;
   Widget _currentAd = SizedBox(
     width: 0.0,
     height: 0.0,
@@ -62,14 +62,59 @@ class AdsPageState extends State<AdsPage> {
       placementId: "VID_HD_16_9_15S_APP_INSTALL#YOUR_PLACEMENT_ID",
       listener: (result, value) {
         print("Rewarded Ad: $result --> $value");
-        if (result == RewardedVideoAdResult.LOADED) _isRewardedAdLoaded = true;
-        if (result == RewardedVideoAdResult.VIDEO_COMPLETE) if (result ==
+        if (result == RewardedVideoAdResult.LOADED){ _isRewardedAdLoaded = true;}
+        if (result == RewardedVideoAdResult.VIDEO_COMPLETE) {
+
+          point=point+10;
+          set();
+        }
+          if (result ==
                 RewardedVideoAdResult.VIDEO_CLOSED &&
             (value == true || value["invalidated"] == true)) {
           _isRewardedAdLoaded = false;
           _loadRewardedVideoAd();
         }
       },
+    );
+  }
+
+  Widget _nativeBannerAd() {
+    return FacebookNativeAd(
+      placementId: "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+      //2312433698835503_2964953543583512",
+      adType: NativeAdType.NATIVE_BANNER_AD,
+      backgroundColor: Colors.orangeAccent,
+      titleColor: Colors.black,
+      descriptionColor: Colors.black,
+      buttonColor: Colors.lightBlue,
+      bannerAdSize: NativeBannerAdSize.HEIGHT_100,
+      width: 300,
+      buttonTitleColor: Colors.black,
+      buttonBorderColor: Colors.black,
+     // height: 200,
+      listener: (result, value) {
+        print("Native Banner Ad: $result --> $value");
+      },
+    );
+  }
+
+  Widget _nativeAd() {
+    return FacebookNativeAd(
+      placementId: "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+      adType: NativeAdType.NATIVE_AD_VERTICAL,
+      width: double.infinity,
+      height: 300,
+      backgroundColor: Colors.orangeAccent,
+      titleColor: Colors.black,
+      descriptionColor: Colors.black,
+      buttonColor: Colors.lightBlue,
+      buttonTitleColor: Colors.black,
+      buttonBorderColor: Colors.black,
+      listener: (result, value) {
+        print("Native Ad: $result --> $value");
+      },
+      keepExpandedWhileLoading: true,
+      expandAnimationDuraion: 1000,
     );
   }
 
@@ -81,30 +126,36 @@ class AdsPageState extends State<AdsPage> {
         child: Column(
           children: [
             ElevatedButton(
+              onPressed: () {
+                return _showBannerAd();
+              },
+              child: Text("      Banner Ad      ")),
+            ElevatedButton(
                 onPressed: () {
                   return _showNativeAd();
                 },
-                child: Text("Native Ad")),
+                child: Text("      Native Ad      ")),
+
             ElevatedButton(
                 onPressed: () {
-                  return _showBannerAd();
+                  return _showInterstitialAd();
                 },
-                child: Text("Banner Ad")),
+                child: Text("    Interstitial Ad   ")),
+            Column(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                 _showRewardedAd();
+                    },
+                    child: Text("    Rewarded Ad   ")),
+                Text("${point}"),
+              ],
+            ),
             ElevatedButton(
                 onPressed: () {
                   return _showNativeBannerAd();
                 },
                 child: Text("Native Banner Ad")),
-            ElevatedButton(
-                onPressed: () {
-                  return _showInterstitialAd();
-                },
-                child: Text("Intestitial Ad")),
-            ElevatedButton(
-                onPressed: () {
-                  return _showRewardedAd();
-                },
-                child: Text("Rewarded Ad")),
             Flexible(
               child: Align(
                 alignment: Alignment(0, 1.0),
@@ -135,7 +186,7 @@ class AdsPageState extends State<AdsPage> {
     _currentAd = FacebookBannerAd(
       placementId: "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
       //#2312433698835503_2964944860251047",
-      bannerSize: BannerSize.STANDARD,
+      bannerSize: BannerSize.MEDIUM_RECTANGLE,
       listener: (result, value) {
         print("Banner Ad: $result -->  $value");
       },
@@ -148,47 +199,8 @@ class AdsPageState extends State<AdsPage> {
     set();
   }
 
-  Widget _nativeBannerAd() {
-    return FacebookNativeAd(
-      placementId: "IMG_16_9_APP_INSTALL#2312433698835503_2964953543583512",
-      adType: NativeAdType.NATIVE_BANNER_AD,
-      bannerAdSize: NativeBannerAdSize.HEIGHT_100,
-      width: double.infinity,
-      backgroundColor: Colors.blue,
-      titleColor: Colors.white,
-      descriptionColor: Colors.white,
-      buttonColor: Colors.deepPurple,
-      buttonTitleColor: Colors.white,
-      buttonBorderColor: Colors.white,
-      listener: (result, value) {
-        print("Native Banner Ad: $result --> $value");
-      },
-    );
-  }
-
   _showNativeAd() {
     _currentAd = _nativeAd();
     set();
-  }
-
-  Widget _nativeAd() {
-    return FacebookNativeAd(
-      placementId: "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
-      //#2312433698835503_2964952163583650",
-      adType: NativeAdType.NATIVE_AD_VERTICAL,
-      width: double.infinity,
-      height: 300,
-      backgroundColor: Colors.blue,
-      titleColor: Colors.white,
-      descriptionColor: Colors.white,
-      buttonColor: Colors.deepPurple,
-      buttonTitleColor: Colors.white,
-      buttonBorderColor: Colors.white,
-      listener: (result, value) {
-        print("Native Ad: $result --> $value");
-      },
-      keepExpandedWhileLoading: true,
-      expandAnimationDuraion: 1000,
-    );
   }
 }
