@@ -29,17 +29,14 @@ class _camState extends State<cam> with WidgetsBindingObserver {
   File? photofl;
   File? vidfl;
 
-  // Initial values
   bool _isCameraInitialized = false;
   bool _isCameraPermissionGranted = false;
   bool _isRearCameraSelected = true;
   bool _isVideoCameraSelected = false;
   bool _isRecordingInProgress = false;
-  bool _isrecording = false;
   double minzoom = 1.0;
   double maxzoom = 1.0;
 
-  // Current values
   double _currentZoomLevel = 1.0;
   FlashMode? _currentFlashMode;
 
@@ -58,7 +55,6 @@ class _camState extends State<cam> with WidgetsBindingObserver {
       setState(() {
         _isCameraPermissionGranted = true;
       });
-      // Set and initialize the new camera
       onNewCameraSelected(cameras[0]);
       refreshAlreadyCapturedImages();
     } else {
@@ -87,18 +83,14 @@ class _camState extends State<cam> with WidgetsBindingObserver {
       String recentFileName = recentFile[1];
       if (recentFileName.contains('.mp4')) {
         vidfl = File('${directory.path}/$recentFileName');
-        print('Video file---------${vidfl}');
         photofl = null;
-        //_startVideoPlayer();
-
+        _startVideoPlayer();
       } else {
         photofl = File('${directory.path}/$recentFileName');
-        print('Photo file---------${photofl}');
-
         vidfl = null;
       }
 
-      st();
+      setState(() {});
     }
   }
 
@@ -123,10 +115,10 @@ class _camState extends State<cam> with WidgetsBindingObserver {
     if (vidfl != null) {
       videoController = VideoPlayerController.file(vidfl!);
       await videoController!.initialize().then((_) {
-        st();
+        setState(() {});
       });
       await videoController!.setLooping(true);
-      await videoController!.play();
+      await videoController!.pause();
     }
   }
 
@@ -134,60 +126,61 @@ class _camState extends State<cam> with WidgetsBindingObserver {
     final CameraController? cameraController = controller;
 
     if (controller!.value.isRecordingVideo) {
-      // A recording has already started, do nothing.
       return;
     }
 
     try {
       await cameraController!.startVideoRecording();
-      _isRecordingInProgress = true;
-      print(_isRecordingInProgress);
-      st();
+      setState(() {
+        _isRecordingInProgress = true;
+        print(_isRecordingInProgress);
+      });
     } on CameraException catch (e) {
       print('Error starting to record video: $e');
     }
+    setState(() {});
   }
 
   Future<XFile?> stopVideoRecording() async {
-    if (controller!.value.isRecordingVideo) {
+    if (!controller!.value.isRecordingVideo) {
       // Recording is already is stopped state
       return null;
     }
 
     try {
       XFile file = await controller!.stopVideoRecording();
-      _isRecordingInProgress = false;
-      st();
+      setState(() {
+        _isRecordingInProgress = false;
+      });
       return file;
     } on CameraException catch (e) {
-      print('Error stopping video recording: $e');
+      print('Error: $e');
       return null;
     }
   }
 
   Future<void> pauseVideoRecording() async {
     if (!controller!.value.isRecordingVideo) {
-      // Video recording is not in progress
       return;
     }
 
     try {
       await controller!.pauseVideoRecording();
     } on CameraException catch (e) {
-      print('Error pausing video recording: $e');
+      print('Error: $e');
     }
   }
 
   Future<void> resumeVideoRecording() async {
     if (!controller!.value.isRecordingVideo) {
-      // No video recording was in progress
       return;
     }
 
     try {
       await controller!.resumeVideoRecording();
+      setState(() {});
     } on CameraException catch (e) {
-      print('Error resuming video recording: $e');
+      print('Error : $e');
     }
   }
 
@@ -213,8 +206,6 @@ class _camState extends State<cam> with WidgetsBindingObserver {
         controller = cameraController;
       });
     }
-
-    // Update UI if controller updated
     cameraController.addListener(() {
       if (mounted) setState(() {});
     });
@@ -228,7 +219,7 @@ class _camState extends State<cam> with WidgetsBindingObserver {
 
       _currentFlashMode = controller!.value.flashMode;
     } on CameraException catch (e) {
-      print('Error initializing camera: $e');
+      print('Error: $e');
     }
 
     if (mounted) {
@@ -253,7 +244,6 @@ class _camState extends State<cam> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    // Hide the status bar in Android
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     getPermissionStatus();
     super.initState();
@@ -263,7 +253,6 @@ class _camState extends State<cam> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final CameraController? cameraController = controller;
 
-    // App state changed before we got the chance to initialize.
     if (cameraController == null || !cameraController.value.isInitialized) {
       return;
     }
@@ -281,22 +270,6 @@ class _camState extends State<cam> with WidgetsBindingObserver {
     videoController?.dispose();
     super.dispose();
   }
-
-  // _recordVideo() async {
-  //   if (_isrecording) {
-  //     final file = await controller!.stopVideoRecording();
-  //     setState(() => _isrecording = false);
-  //     final route = MaterialPageRoute(
-  //       fullscreenDialog: true,
-  //       builder: (_) => VideoPage(filePath: file.path),
-  //     );
-  //     Navigator.push(context, route);
-  //   } else {
-  //     await controller!.prepareForVideoRecording();
-  //     await controller!.startVideoRecording();
-  //     setState(() => _isrecording = true);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -545,14 +518,21 @@ class _camState extends State<cam> with WidgetsBindingObserver {
                                                   vidfl = await videoFile.copy(
                                                     '${directory.path}/$currentUnix.$fileFormat',
                                                   );
-                                                  _isRecordingInProgress =
-                                                      false;
+                                                  final route =
+                                                      MaterialPageRoute(
+                                                    fullscreenDialog: true,
+                                                    builder: (_) =>
+                                                        recordingpage(
+                                                      filePath: rawVideo.path,
+                                                    ),
+                                                  );
+                                                  Navigator.push(
+                                                      context, route);
 
                                                   _startVideoPlayer();
                                                 } else {
                                                   await startVideoRecording();
-                                                  //time();
-                                                  // setState(() {});
+                                                  setState(() {});
                                                 }
                                               }
                                             : () async {
@@ -587,7 +567,7 @@ class _camState extends State<cam> with WidgetsBindingObserver {
                                           alignment: Alignment.center,
                                           children: [
                                             Icon(
-                                              Icons.radio_button_off,
+                                              Icons.camera,
                                               color: _isVideoCameraSelected
                                                   ? Colors.white
                                                   : Colors.white,
