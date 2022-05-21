@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertask/Week3/3.3update.dart';
 import 'package:sqflite/sqflite.dart';
@@ -28,6 +30,12 @@ class _viewpageState extends State<viewpage> {
   }
 
   @override
+  void initState() {
+    getdata();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('View')),
@@ -40,6 +48,15 @@ class _viewpageState extends State<viewpage> {
                 itemCount: lst.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    leading: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: MemoryImage(
+                                    base64Decode(lst[index]['image']))),
+                            shape: BoxShape.circle,
+                            color: Colors.grey)),
                     title: Text("${lst[index]['email']}"),
                     subtitle: Text("${lst[index]['password']}"),
                     trailing: IconButton(

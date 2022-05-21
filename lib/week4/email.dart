@@ -27,134 +27,135 @@ class _emailState extends State<email> {
   String suberror = "";
   String writeerror = "";
 
+  bool loading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(30),
-          child: Column(children: [
-            Container(
-              padding: EdgeInsets.only(top: 30, bottom: 20),
-              child: TextField(
-                controller: To,
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  setState(() {
-                    if (value.isNotEmpty) Tostatus = false;
-                  });
-                },
-                decoration: InputDecoration(
-                    hintText: 'TO',
-                    errorText: Tostatus ? "$Toerror" : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: Icon(Icons.email_outlined)),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: TextField(
-                controller: sub,
-                maxLines: 2,
-                keyboardType: TextInputType.text,
-                onChanged: (value) {
-                  setState(() {
-                    if (value.isNotEmpty) substatus = false;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: 'Subject',
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Icon(
-                      Icons.menu,
+        body: loading
+            ? SingleChildScrollView(
+                child: Container(
+                padding: EdgeInsets.all(30),
+                child: Column(children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 30, bottom: 20),
+                    child: TextField(
+                      controller: To,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.isNotEmpty) Tostatus = false;
+                        });
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'TO',
+                          errorText: Tostatus ? "$Toerror" : null,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          prefixIcon: Icon(Icons.email_outlined)),
                     ),
                   ),
-                  errorText: substatus ? "$suberror" : null,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: TextField(
-                controller: write,
-                maxLines: 10,
-                keyboardType: TextInputType.text,
-                onChanged: (value) {
-                  setState(() {
-                    if (value.isNotEmpty) writestatus = false;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: 'Compose Mail',
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 180),
-                    child: Icon(
-                      Icons.message,
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: TextField(
+                      controller: sub,
+                      maxLines: 2,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.isNotEmpty) substatus = false;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Subject',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Icon(
+                            Icons.menu,
+                          ),
+                        ),
+                        errorText: substatus ? "$suberror" : null,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
                     ),
                   ),
-                  errorText: writestatus ? "$writeerror" : null,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      String TO = To.text;
-                      String SUB = sub.text;
-                      String WRITE = write.text;
+                  Container(
+                    margin: EdgeInsets.only(top: 30),
+                    child: TextField(
+                      controller: write,
+                      maxLines: 10,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.isNotEmpty) writestatus = false;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Compose Mail',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(bottom: 180),
+                          child: Icon(
+                            Icons.message,
+                          ),
+                        ),
+                        errorText: writestatus ? "$writeerror" : null,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            String TO = To.text;
+                            String SUB = sub.text;
+                            String WRITE = write.text;
 
-                      if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
-                        Tostatus = true;
-                        Toerror = "Please enter EmailId";
-                        substatus = true;
-                        suberror = "Please enter Subject";
-                        writestatus = true;
-                        writeerror = "Please Write Something";
-                      } else {
-                        pqr(To.text, sub.text, write.text);
-                      }
-                    });
-                  },
-                  child: Text("Send")),
+                            if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
+                              Tostatus = true;
+                              Toerror = "Please enter EmailId";
+                              substatus = true;
+                              suberror = "Please enter Subject";
+                              writestatus = true;
+                              writeerror = "Please Write Something";
+                            } else {
+                              pqr(To.text, sub.text, write.text);
+                            }
+                          });
+                        },
+                        child: Text("Send")),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            String TO = To.text;
+                            String SUB = sub.text;
+                            String WRITE = write.text;
 
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      String TO = To.text;
-                      String SUB = sub.text;
-                      String WRITE = write.text;
-
-                      if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
-                        Tostatus = true;
-                        Toerror = "Please enter EmailId";
-                        substatus = true;
-                        suberror = "Please enter Subject";
-                        writestatus = true;
-                        writeerror = "Please Write Something";
-                      } else {
-                               sendEmail();
-                      }
-                    });
-                  },
-                  child: Text("Send")),
-
-            ),
-
-          ]),
-        ),
-      ),
-    );
+                            if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
+                              Tostatus = true;
+                              Toerror = "Please enter EmailId";
+                              substatus = true;
+                              suberror = "Please enter Subject";
+                              writestatus = true;
+                              writeerror = "Please Write Something";
+                            } else {
+                              sendEmail();
+                            }
+                          });
+                        },
+                        child: Text("Send")),
+                  ),
+                ]),
+              ))
+            : Center(
+                child: CircularProgressIndicator(),
+              ));
   }
 
   void pqr(String text, String text2, String text3) {
@@ -163,8 +164,13 @@ class _emailState extends State<email> {
   }
 
   Future sendEmail() async {
-
+    setState(() {
+      loading = false;
+    });
     final user = await GoogleAuthApi.signIn();
+    setState(() {
+      loading = true;
+    });
 
     if (user == null) return;
     final email = user.email;
@@ -191,14 +197,12 @@ class _emailState extends State<email> {
     } on MailerException catch (e) {
       print(e);
     }
-
-    }
-
+  }
 }
 
 class GoogleAuthApi {
   static final _googlesignin =
-  GoogleSignIn(scopes: ['https://mail.google.com/']);
+      GoogleSignIn(scopes: ['https://mail.google.com/']);
 
   static Future<GoogleSignInAccount?> signIn() async {
     if (await _googlesignin.isSignedIn()) {

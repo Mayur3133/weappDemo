@@ -9,14 +9,15 @@ class data {
     Database database = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE emp (id INTEGER PRIMARY KEY, email TEXT, password TEXT)');
+          'CREATE TABLE emp (id INTEGER PRIMARY KEY, email TEXT, password TEXT,image BLOB)');
     });
     return database;
   }
 
-  Future<void> datainsert(
-      Database database, String Email, String Password) async {
-    String qur = "insert into emp(email,password) values('$Email','$Password')";
+  Future<void> datainsert(Database database, String Email, String Password,
+      [String? image]) async {
+    String qur =
+        "insert into emp(email,password,image) values('$Email','$Password','$image')";
 
     int count = await database.rawInsert(qur);
     print(count);
@@ -29,13 +30,15 @@ class data {
   }
 
   Future<void> deleteUser(Database database, int userid) async {
-    String qur ="delete from emp where id ='$userid'";
+    String qur = "delete from emp where id ='$userid'";
     await database.rawDelete(qur);
   }
 
-  Future<void> dataupdate(Database database, int userid, String Email, String Password)
-  async {
-    String qur =  "update emp SET email='$Email',password='$Password' where id='$userid'";
+  Future<void> dataupdate(
+      Database database, int userid, String Email, String Password,
+      [String? image]) async {
+    String qur =
+        "update emp SET email='$Email',password='$Password',image='$image' where id='$userid'";
     await database.rawUpdate(qur);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertask/homepage.dart';
 import 'package:fluttertask/main.dart';
 import '1.3.1.dart';
 import '1.3.2.dart';
@@ -73,7 +74,7 @@ class _naviState extends State<navi> {
             InkWell(
               onTap: () {
                 Navigator.pushAndRemoveUntil (context, MaterialPageRoute(builder:(context){
-                  return task();
+                  return homepage();
                 }),(route) => false );
               },
               child: Container(

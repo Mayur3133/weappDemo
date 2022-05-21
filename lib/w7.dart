@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertask/Week7/Camera/camera.dart';
-import 'package:fluttertask/Week8/animation.dart';
+import 'package:fluttertask/Week8/animation/animation.dart';
 
 import 'Week7/in app purchase.dart';
 import 'Week7/payment gateway.dart';

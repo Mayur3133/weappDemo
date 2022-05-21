@@ -17,7 +17,7 @@ class gdata extends StatefulWidget {
 class _gdataState extends State<gdata> {
   Future<Mydata> getdata() async {
     final response = await http.get(
-        Uri.parse("http://192.168.1.38/Practical_Api/api/get_user_list"),
+        Uri.parse("http://192.168.1.42/Practical_Api/api/get_user_list"),
         headers: {
           "Token":
               "dyGyy4ST5P8:APA91bFDJ_X9qdRcWvdAnXxnrKXU0DlVUpGf5CQez4mLSn9y6vo0qQUslK2Zj2YLO2eEH-x7K6dyf40Ltd5aCGoNs9Kk2ZRx_oCb88D3l_53SVqjhdKlLKz0enqdtvxDN3K0lg_eISlc"
@@ -35,7 +35,7 @@ class _gdataState extends State<gdata> {
 
   Future delet(String uid) async {
     var dldata = await http.delete(
-        Uri.parse("http://192.168.1.38/Practical_Api/api/delete_user"),
+        Uri.parse("http://192.168.1.42/Practical_Api/api/delete_user"),
         headers: {
           "Token":
               "dyGyy4ST5P8:APA91bFDJ_X9qdRcWvdAnXxnrKXU0DlVUpGf5CQez4mLSn9y6vo0qQUslK2Zj2YLO2eEH-x7K6dyf40Ltd5aCGoNs9Kk2ZRx_oCb88D3l_53SVqjhdKlLKz0enqdtvxDN3K0lg_eISlc"

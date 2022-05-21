@@ -26,8 +26,14 @@ class glrscn extends StatelessWidget {
             children: [
               Stack(children: [
                 Expanded(
-                  child: Container(
-                    child: Image.file(imageFile),
+                  child: InteractiveViewer(
+                    boundaryMargin: EdgeInsets.all(100),
+                    panEnabled: false,
+                    minScale: 0.5,
+                    maxScale: 5,
+                    child: Container(
+                      child: Image.file(imageFile),
+                    ),
                   ),
                 ),
                 Padding(

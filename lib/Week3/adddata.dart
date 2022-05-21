@@ -18,7 +18,7 @@ class _additemState extends State<additem> {
       ) async {
     var response = await http.MultipartRequest(
       'POST',
-      Uri.parse("http://192.168.1.38/Practical_Api/api/add_user"),
+      Uri.parse("http://192.168.1.42/Practical_Api/api/add_user"),
 
       // body: ({"name": name, "email": email})
     );

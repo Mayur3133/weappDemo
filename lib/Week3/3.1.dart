@@ -49,6 +49,9 @@ class _gestureState extends State<gesture> {
                 dir = true;
               });
             },
+            // onPanStart: (details) {
+            //   setState(() {});
+            // },
             child: PhotoViewGallery.builder(
               itemCount: img.length,
               scrollDirection: dir ? Axis.vertical : Axis.horizontal,

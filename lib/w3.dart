@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertask/Week3/3.1.dart';
 import 'package:fluttertask/Week3/3.2.dart';
 import 'package:fluttertask/Week3/3.3.dart';
-import 'package:fluttertask/Week3/callwebservice.dart';
 
 import 'Week3/getdata.dart';
 

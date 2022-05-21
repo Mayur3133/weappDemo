@@ -22,7 +22,7 @@ class _updataState extends State<updata> {
       //  XFile image,
       ) async {
     var response = await http.put(
-      Uri.parse("http://192.168.1.38/Practical_Api/api/edit_user_details"),
+      Uri.parse("http://192.168.1.42/Practical_Api/api/edit_user_details"),
       headers: {
         "Token":
         "dyGyy4ST5P8:APA91bFDJ_X9qdRcWvdAnXxnrKXU0DlVUpGf5CQez4mLSn9y6vo0qQUslK2Zj2YLO2eEH-x7K6dyf40Ltd5aCGoNs9Kk2ZRx_oCb88D3l_53SVqjhdKlLKz0enqdtvxDN3K0lg_eISlc"
@@ -195,7 +195,7 @@ class _updataState extends State<updata> {
   updateimage(String path, Map<String, String> uData
       ) async {
     final response =await http.MultipartRequest(
-      'POST',Uri.parse("http://192.168.1.38/Practical_Api/api/change_profile_pic"),
+      'POST',Uri.parse("http://192.168.1.42/Practical_Api/api/change_profile_pic"),
     );
     var headers={
       "Token":"dyGyy4ST5P8:APA91bFDJ_X9qdRcWvdAnXxnrKXU0DlVUpGf5CQez4mLSn9y6vo0qQUslK2Zj2YLO2eEH-x7K6dyf40Ltd5aCGoNs9Kk2ZRx_oCb88D3l_53SVqjhdKlLKz0enqdtvxDN3K0lg_eISlc"

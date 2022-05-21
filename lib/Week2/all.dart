@@ -8,8 +8,50 @@ class all extends StatefulWidget {
 }
 
 class _allState extends State<all> {
+
+  List<model> lst = [
+    model(
+      image: "image/lat.jpg",
+      flat: ' ⦿ Flat 15-25% OFF ',
+      pro: " ⦿ PRO ",
+      rate: ' 4.5 ★ ',
+      top: ' ★Top Rated  ',
+      title: 'La Tavern gril',
+      subtitle: 'Japanese, Korean',
+    ),
+    model(
+      image: "image/chi.jpg",
+      flat: ' ⦿ FLAT 15-20% OFF ',
+      pro: '',
+      rate: ' 3.5 ★ ',
+      top: ' 💗 Frequently Ordered  ',
+      title: 'Asian Food Haus',
+      subtitle: 'Asian, Chinese',
+    ),
+    model(
+      image: "image/pizza.jpg",
+      flat: ' ⦿ FLAT 10-25% OFF ',
+      pro: ' ⦿ PRO',
+      rate: ' 4.5 ★ ',
+      top: ' ★Top Rated  ',
+      title: 'Pizza',
+      subtitle: 'Asian Italian',
+    ),
+    model(
+      image: "image/pasta.jpg",
+      flat: ' ⦿ FLAT 5-7% OFF ',
+      pro: " ",
+      rate: ' 4.0 ★ ',
+      top: ' 💗 Frequently Ordered  ',
+      title: 'Cuisine Pasta',
+      subtitle: 'Asian Italian',
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -527,418 +569,581 @@ class _allState extends State<all> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 5),
-                        height: 200,
-                        width: 190,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('image/lat.jpg'))),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black12,
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 25,
-                                margin: EdgeInsets.only(top: 10, right: 70),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(' ★ Top Rated   ',
-                                    style: TextStyle(
-                                      color: Colors.orange[800],
-                                      //backgroundColor: Colors.white
-                                    )),
-                              ),
-                              Container(
-                                height: 25,
-                                margin: EdgeInsets.only(
-                                  top: 90,
-                                  right: 50,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.elliptical(5, 5),
-                                        topRight: Radius.elliptical(5, 5))),
-                                child: Text('  ⦿ Flat 15-20% OFF     ',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      //backgroundColor: Colors.white
-                                    )),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 10,
-                                      //   right: 120,
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red[400],
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight:
-                                                Radius.elliptical(5, 5),
-                                            topRight: Radius.elliptical(5, 5))),
-                                    child: Text('  ⦿ PRO  ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 10,
-                                      right: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green[500],
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Text(' 4.5★ ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Le Tavern Gril',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          Text('Japanese,Korean',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  ],
+
+            GridView.builder(
+                itemCount: lst.length,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisExtent: 243,
                 ),
-                Spacer(flex: 1),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 5, right: 10),
-                        height: 200,
-                        width: 190,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('image/chi.jpg'))),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black12,
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 25,
-                                margin: EdgeInsets.only(
-                                    top: 10, right: 10, left: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(' 💗 Frequently Ordered   ',
-                                    style: TextStyle(
-                                      color: Colors.pink[500],
-                                      //backgroundColor: Colors.white
-                                    )),
-                              ),
-                              Stack(children: [
-                                Container(
-                                  height: 25,
-                                  margin: EdgeInsets.only(
-                                    top: 110,
-                                    right: 65,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.elliptical(5, 5),
-                                          topRight: Radius.elliptical(5, 5))),
-                                  child: Text('  ⦿  Flat 15-20% OFF  ',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        //backgroundColor: Colors.white
-                                      )),
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(left: 5, top: 10, bottom: 5, right: 5),
+                    alignment: Alignment.center,
+                    // height: size.height * 0.25,
+                    // width: size.width * 0.06,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              height: size.height * 0.20,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
                                 ),
-                                Container(
-                                  height: 25,
-                                  margin: EdgeInsets.only(
-                                    top: 120,
-                                    left: 130,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Colors.green[500],
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Text(' 3.5★ ',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        //backgroundColor: Colors.white
-                                      )),
+                                image: DecorationImage(
+                                  image: AssetImage(lst[index].image),
+                                  fit: BoxFit.cover,
                                 ),
-                              ]),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Asian Food Haus',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          Text('Asian,Chinese',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 5),
-                        height: 200,
-                        width: 190,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('image/pizza.jpg'))),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black12,
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 25,
-                                margin: EdgeInsets.only(top: 10, right: 70),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(' ★ Top Rated   ',
-                                    style: TextStyle(
-                                      color: Colors.orange[800],
-                                      //backgroundColor: Colors.white
-                                    )),
                               ),
-                              Container(
-                                height: 25,
-                                margin: EdgeInsets.only(
-                                  top: 90,
-                                  right: 50,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.elliptical(5, 5),
-                                        topRight: Radius.elliptical(5, 5))),
-                                child: Text('  ⦿ Flat 15-20% OFF     ',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      //backgroundColor: Colors.white
-                                    )),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 10,
-                                      //   right: 120,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Card(
+                                      child: Text(lst[index].top,
+                                          style: TextStyle(
+                                            color: Colors.orange[800],
+                                            // backgroundColor: Colors.white
+                                          )),
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red[400],
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight:
-                                                Radius.elliptical(5, 5),
-                                            topRight: Radius.elliptical(5, 5))),
-                                    child: Text('  ⦿ PRO  ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 10,
-                                      right: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green[500],
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Text(' 4.5★ ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Pizza',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          Text('Asian,Italian',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(flex: 1),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 5, right: 10),
-                        height: 200,
-                        width: 190,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('image/pasta.jpg'))),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black12,
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 25,
-                                margin: EdgeInsets.only(
-                                    top: 10, right: 10, left: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(' 💗 Frequently Ordered   ',
-                                    style: TextStyle(
-                                      color: Colors.pink[500],
-                                      //backgroundColor: Colors.white
-                                    )),
-                              ),
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 110,
-                                      right: 65,
-                                    ),
-                                    decoration: BoxDecoration(
+                                    Container(
+                                      width: size.width * 0.35,
+                                      margin: EdgeInsets.only(right: 50, top: 70),
+                                      decoration: BoxDecoration(
                                         color: Colors.blue,
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight:
-                                                Radius.elliptical(5, 5),
-                                            topRight: Radius.elliptical(5, 5))),
-                                    child: Text('  ⦿  Flat 15-20% OFF  ',
+                                        borderRadius: const BorderRadius.only(
+                                            topRight: Radius.elliptical(5, 5),
+                                            bottomRight: Radius.elliptical(5, 5)),
+                                      ),
+                                      child: Text(
+                                        lst[index].flat,
                                         style: TextStyle(
+                                          fontSize: 13,
                                           color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                  Container(
-                                    height: 25,
-                                    margin: EdgeInsets.only(
-                                      top: 125,
-                                      left: 130,
+                                        ),
+                                      ),
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green[500],
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Text(' 4.0★ ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          //backgroundColor: Colors.white
-                                        )),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(top: 5, right: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: lst[index].pro != ''
+                                                  ? Colors.red[400]
+                                                  : Colors.transparent,
+                                              borderRadius: const BorderRadius.only(
+                                                  topRight: Radius.elliptical(5, 5),
+                                                  bottomRight:
+                                                  Radius.elliptical(5, 5)),
+                                            ),
+                                            child: Text(
+                                              lst[index].pro,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: size.width * 0.05,
+                                            decoration: BoxDecoration(
+                                              color:  Colors.green[500],
+                                              borderRadius:
+                                              BorderRadius.circular(5),
+                                            ),
+                                            child: Text(
+                                              lst[index].rate,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(top: 5, left: 3, bottom: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                lst[index].title,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                lst[index].subtitle,
+                                style: TextStyle(color: Colors.black54),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ]),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('cuisine Pasta',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          Text('Asian,Italian',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.grey)),
-                        ],
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  );
+                }),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Stack(children: [
+            //           Container(
+            //             margin: EdgeInsets.only(top: 10, left: 10, right: 5),
+            //             height: 200,
+            //             width: 190,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 image: DecorationImage(
+            //                     fit: BoxFit.cover,
+            //                     image: AssetImage('image/lat.jpg'))),
+            //             child: Container(
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Colors.black12,
+            //               ),
+            //               child: Column(
+            //                 children: [
+            //                   Container(
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(top: 10, right: 70),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white,
+            //                         borderRadius: BorderRadius.circular(5)),
+            //                     child: Text(' ★ Top Rated   ',
+            //                         style: TextStyle(
+            //                           color: Colors.orange[800],
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Container(
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(
+            //                       top: 90,
+            //                       right: 50,
+            //                     ),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.blue,
+            //                         borderRadius: BorderRadius.only(
+            //                             bottomRight: Radius.elliptical(5, 5),
+            //                             topRight: Radius.elliptical(5, 5))),
+            //                     child: Text('  ⦿ Flat 15-20% OFF     ',
+            //                         style: TextStyle(
+            //                           color: Colors.white,
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Row(
+            //                     children: [
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 10,
+            //                           //   right: 120,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.red[400],
+            //                             borderRadius: BorderRadius.only(
+            //                                 bottomRight:
+            //                                     Radius.elliptical(5, 5),
+            //                                 topRight: Radius.elliptical(5, 5))),
+            //                         child: Text('  ⦿ PRO  ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                       Spacer(),
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 10,
+            //                           right: 10,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.green[500],
+            //                             borderRadius: BorderRadius.circular(5)),
+            //                         child: Text(' 4.5★ ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ]),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 10),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text('Le Tavern Gril',
+            //                   style: TextStyle(
+            //                       fontSize: 20, fontWeight: FontWeight.bold)),
+            //               Text('Japanese,Korean',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.grey)),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     Spacer(flex: 1),
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Stack(children: [
+            //           Container(
+            //             margin: EdgeInsets.only(top: 10, left: 5, right: 10),
+            //             height: 200,
+            //             width: 190,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 image: DecorationImage(
+            //                     fit: BoxFit.cover,
+            //                     image: AssetImage('image/chi.jpg'))),
+            //             child: Container(
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Colors.black12,
+            //               ),
+            //               child: Column(
+            //                 children: [
+            //                   Container(
+            //                     alignment: Alignment.center,
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(
+            //                         top: 10, right: 10, left: 10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white,
+            //                         borderRadius: BorderRadius.circular(5)),
+            //                     child: Text(' 💗 Frequently Ordered   ',
+            //                         style: TextStyle(
+            //                           color: Colors.pink[500],
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Stack(children: [
+            //                     Container(
+            //                       height: 25,
+            //                       margin: EdgeInsets.only(
+            //                         top: 110,
+            //                         right: 65,
+            //                       ),
+            //                       decoration: BoxDecoration(
+            //                           color: Colors.blue,
+            //                           borderRadius: BorderRadius.only(
+            //                               bottomRight: Radius.elliptical(5, 5),
+            //                               topRight: Radius.elliptical(5, 5))),
+            //                       child: Text('  ⦿  Flat 15-20% OFF  ',
+            //                           style: TextStyle(
+            //                             color: Colors.white,
+            //                             //backgroundColor: Colors.white
+            //                           )),
+            //                     ),
+            //                     Container(
+            //                       height: 25,
+            //                       margin: EdgeInsets.only(
+            //                         top: 120,
+            //                         left: 130,
+            //                       ),
+            //                       decoration: BoxDecoration(
+            //                           color: Colors.green[500],
+            //                           borderRadius: BorderRadius.circular(5)),
+            //                       child: Text(' 3.5★ ',
+            //                           style: TextStyle(
+            //                             color: Colors.white,
+            //                             //backgroundColor: Colors.white
+            //                           )),
+            //                     ),
+            //                   ]),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ]),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 10),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text('Asian Food Haus',
+            //                   style: TextStyle(
+            //                       fontSize: 20, fontWeight: FontWeight.bold)),
+            //               Text('Asian,Chinese',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.grey)),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Stack(children: [
+            //           Container(
+            //             margin: EdgeInsets.only(top: 10, left: 10, right: 5),
+            //             height: 200,
+            //             width: 190,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 image: DecorationImage(
+            //                     fit: BoxFit.cover,
+            //                     image: AssetImage('image/pizza.jpg'))),
+            //             child: Container(
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Colors.black12,
+            //               ),
+            //               child: Column(
+            //                 children: [
+            //                   Container(
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(top: 10, right: 70),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white,
+            //                         borderRadius: BorderRadius.circular(5)),
+            //                     child: Text(' ★ Top Rated   ',
+            //                         style: TextStyle(
+            //                           color: Colors.orange[800],
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Container(
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(
+            //                       top: 90,
+            //                       right: 50,
+            //                     ),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.blue,
+            //                         borderRadius: BorderRadius.only(
+            //                             bottomRight: Radius.elliptical(5, 5),
+            //                             topRight: Radius.elliptical(5, 5))),
+            //                     child: Text('  ⦿ Flat 15-20% OFF     ',
+            //                         style: TextStyle(
+            //                           color: Colors.white,
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Row(
+            //                     children: [
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 10,
+            //                           //   right: 120,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.red[400],
+            //                             borderRadius: BorderRadius.only(
+            //                                 bottomRight:
+            //                                     Radius.elliptical(5, 5),
+            //                                 topRight: Radius.elliptical(5, 5))),
+            //                         child: Text('  ⦿ PRO  ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                       Spacer(),
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 10,
+            //                           right: 10,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.green[500],
+            //                             borderRadius: BorderRadius.circular(5)),
+            //                         child: Text(' 4.5★ ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ]),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 10),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text('Pizza',
+            //                   style: TextStyle(
+            //                       fontSize: 20, fontWeight: FontWeight.bold)),
+            //               Text('Asian,Italian',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.grey)),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     Spacer(flex: 1),
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Stack(children: [
+            //           Container(
+            //             margin: EdgeInsets.only(top: 10, left: 5, right: 10),
+            //             height: 200,
+            //             width: 190,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 image: DecorationImage(
+            //                     fit: BoxFit.cover,
+            //                     image: AssetImage('image/pasta.jpg'))),
+            //             child: Container(
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Colors.black12,
+            //               ),
+            //               child: Column(
+            //                 children: [
+            //                   Container(
+            //                     alignment: Alignment.center,
+            //                     height: 25,
+            //                     margin: EdgeInsets.only(
+            //                         top: 10, right: 10, left: 10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white,
+            //                         borderRadius: BorderRadius.circular(5)),
+            //                     child: Text(' 💗 Frequently Ordered   ',
+            //                         style: TextStyle(
+            //                           color: Colors.pink[500],
+            //                           //backgroundColor: Colors.white
+            //                         )),
+            //                   ),
+            //                   Stack(
+            //                     children: [
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 110,
+            //                           right: 65,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.blue,
+            //                             borderRadius: BorderRadius.only(
+            //                                 bottomRight:
+            //                                     Radius.elliptical(5, 5),
+            //                                 topRight: Radius.elliptical(5, 5))),
+            //                         child: Text('  ⦿  Flat 15-20% OFF  ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                       Container(
+            //                         height: 25,
+            //                         margin: EdgeInsets.only(
+            //                           top: 125,
+            //                           left: 130,
+            //                         ),
+            //                         decoration: BoxDecoration(
+            //                             color: Colors.green[500],
+            //                             borderRadius: BorderRadius.circular(5)),
+            //                         child: Text(' 4.0★ ',
+            //                             style: TextStyle(
+            //                               color: Colors.white,
+            //                               //backgroundColor: Colors.white
+            //                             )),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ]),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 10),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text('cuisine Pasta',
+            //                   style: TextStyle(
+            //                       fontSize: 20, fontWeight: FontWeight.bold)),
+            //               Text('Asian,Italian',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.grey)),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
     );
   }
+}
+
+
+class model {
+  final String image;
+  final String flat;
+  final String rate;
+  final String pro;
+  final String top;
+  final String title;
+  final String subtitle;
+
+  model({
+    required this.image,
+    required this.flat,
+    required this.rate,
+    required this.pro,
+    required this.top,
+    required this.title,
+    required this.subtitle,
+  });
 }
