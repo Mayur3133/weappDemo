@@ -100,7 +100,15 @@ dependencies:
   gallery_saver:
   easy_localization:
   animations:
-  firebase_database:   
+  firebase_database:
+  firebase_storage:
+  cached_network_image:
+  firebase_messaging:
+  awesome_notifications:
+  carousel_slider:
+  cloud_firestore:
+  flutter_local_notifications:
+  firebase_dynamic_links:
 dev_dependencies:
   flutter_test:
     sdk: flutter

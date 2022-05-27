@@ -114,14 +114,39 @@ class _emailState extends State<email> {
                             String SUB = sub.text;
                             String WRITE = write.text;
 
-                            if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
+                            if(TO.isEmpty){
                               Tostatus = true;
                               Toerror = "Please enter EmailId";
+                            }
+                            if(SUB.isEmpty){
                               substatus = true;
                               suberror = "Please enter Subject";
+                            }
+                            if(WRITE.isEmpty){
                               writestatus = true;
                               writeerror = "Please Write Something";
-                            } else {
+                            }
+
+                            // if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
+                            //   Tostatus = true;
+                            //   Toerror = "Please enter EmailId";
+                            //   substatus = true;
+                            //   suberror = "Please enter Subject";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // }else if(SUB.isEmpty && WRITE.isEmpty) {
+                            //   substatus = true;
+                            //   suberror = "Please enter Subject";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // }
+                            // else if(TO.isEmpty &&  WRITE.isEmpty){
+                            //   Tostatus = true;
+                            //   Toerror = "Please enter EmailId";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // }
+                            else {
                               pqr(To.text, sub.text, write.text);
                             }
                           });
@@ -136,15 +161,39 @@ class _emailState extends State<email> {
                             String TO = To.text;
                             String SUB = sub.text;
                             String WRITE = write.text;
+                             if(TO.isEmpty){
+                               Tostatus = true;
+                               Toerror = "Please enter EmailId";
+                             }
+                             if(SUB.isEmpty){
+                               substatus = true;
+                               suberror = "Please enter Subject";
+                             }
+                             if(WRITE.isEmpty){
+                               writestatus = true;
+                               writeerror = "Please Write Something";
+                             }
 
-                            if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
-                              Tostatus = true;
-                              Toerror = "Please enter EmailId";
-                              substatus = true;
-                              suberror = "Please enter Subject";
-                              writestatus = true;
-                              writeerror = "Please Write Something";
-                            } else {
+                            // if (TO.isEmpty && SUB.isEmpty && WRITE.isEmpty) {
+                            //   Tostatus = true;
+                            //   Toerror = "Please enter EmailId";
+                            //   substatus = true;
+                            //   suberror = "Please enter Subject";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // } else if(SUB.isEmpty && WRITE.isEmpty) {
+                            //   substatus = true;
+                            //   suberror = "Please enter Subject";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // }
+                            // else if(TO.isEmpty &&  WRITE.isEmpty){
+                            //   Tostatus = true;
+                            //   Toerror = "Please enter EmailId";
+                            //   writestatus = true;
+                            //   writeerror = "Please Write Something";
+                            // }
+                            else {
                               sendEmail();
                             }
                           });

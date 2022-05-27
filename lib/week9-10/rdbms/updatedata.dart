@@ -1,13 +1,29 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertask/week9-10/rdbms/viewdata.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Updatedata extends StatefulWidget {
-  const Updatedata({Key? key}) : super(key: key);
+  String key1;
+  String id;
+  String Name;
+  String designation;
+  String contact;
+  String salary;
+  String email;
+  String vlu;
+  String url;
+
+  Updatedata(this.key1, this.id, this.Name, this.designation, this.contact,
+      this.salary, this.email, this.vlu, this.url);
 
   @override
   _UpdatedataState createState() => _UpdatedataState();
@@ -37,11 +53,12 @@ class _UpdatedataState extends State<Updatedata> {
   String iderror = "";
   String gendererror = "";
   String salaryerror = "";
+  File? _image;
 
   bool status = false;
   String vlu = '';
   final auth = FirebaseAuth.instance;
-  final databaseref = FirebaseDatabase.instance.ref('Employe');
+  late DatabaseReference databaseref = FirebaseDatabase.instance.ref('Employe');
 
   Set() {
     if (mounted) {
@@ -51,8 +68,16 @@ class _UpdatedataState extends State<Updatedata> {
 
   @override
   void initState() {
-    // databaseref;
-    // DatabaseReference databaseref = FirebaseDatabase.instance.ref('Employe');
+    databaseref = FirebaseDatabase.instance.ref('Employe');
+
+    tid.text = widget.id;
+    tname.text = widget.Name;
+    temail.text = widget.email;
+    tcontact.text = widget.contact;
+    tdesignation.text = widget.designation;
+    tsalary.text = widget.salary;
+    vlu = widget.vlu;
+
     super.initState();
   }
 
@@ -63,6 +88,54 @@ class _UpdatedataState extends State<Updatedata> {
         child: ListView(
           padding: EdgeInsets.only(top: 100, left: 20, right: 20),
           children: [
+            InkWell(
+              onTap: () async {
+                final photo = await ImagePicker.platform
+                    .getImage(source: ImageSource.gallery, imageQuality: 50);
+                _image = File(photo!.path);
+                setState(() {});
+              },
+              child: _image != null
+                  ? Container(
+                      height: 100,
+                      width: 80,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(_image!), fit: BoxFit.cover),
+                          shape: BoxShape.circle,
+                          color: Colors.grey))
+                  : Container(
+                      height: 100,
+                      width: 80,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey),
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          height: 100,
+                          width: 50,
+                          fit: BoxFit.cover,
+                          imageUrl: widget.url,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return CircleAvatar(
+                              child: Icon(
+                                Icons.person,
+                                size: 30,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+            ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: TextField(
@@ -271,16 +344,25 @@ class _UpdatedataState extends State<Updatedata> {
                     salarystatus = true;
                     salaryerror = "Please Enter salary";
                   } else {
-                    // print("-----------------------------------------------");
+                    String filename = "id-${tid.text}-${tname.text}";
+                    final des = 'file/$filename';
+                    TaskSnapshot snapshot = await FirebaseStorage.instance
+                        .ref()
+                        .child(des)
+                        .putFile(_image!);
+                    final String downloadUrl =
+                        await snapshot.ref.getDownloadURL();
+                    // var up = "id-${tid.text}-${tname.text}";
                     String? key = databaseref.child('Employe').push().key;
-                    databaseref.child('Employe').child(key!).update({
+                    databaseref.child('Employe').child(widget.key1).update({
                       'id': tid.text,
                       'Name': tname.text,
                       'email': temail.text,
                       'contact': tcontact.text,
                       'designation': tdesignation.text,
                       'salary': tsalary.text,
-                      'gender': vlu.toString()
+                      'gender': vlu.toString(),
+                      'url': downloadUrl,
                     });
                     tid.clear();
                     tname.clear();
@@ -291,22 +373,14 @@ class _UpdatedataState extends State<Updatedata> {
                     vlu = '';
                   }
                   Set();
+                  Navigator.pop(context);
                 },
                 child: Text(
-                  "  Add ",
+                  "  Save ",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => viewdata(),
-                      ));
-                },
-                child: Text("View"))
           ],
         ),
       ),

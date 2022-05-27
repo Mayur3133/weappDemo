@@ -54,7 +54,8 @@ class _viewpageState extends State<viewpage> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: MemoryImage(
-                                    base64Decode(lst[index]['image']))),
+                                    base64Decode(lst[index]['image'])),
+                                fit: BoxFit.cover),
                             shape: BoxShape.circle,
                             color: Colors.grey)),
                     title: Text("${lst[index]['email']}"),

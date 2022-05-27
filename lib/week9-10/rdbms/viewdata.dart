@@ -43,6 +43,7 @@
 // }
 
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -64,14 +65,12 @@ class _viewdataState extends State<viewdata> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "View RealTime Data",
+          "View Data",
         ),
       ),
       body: FirebaseAnimatedList(
         defaultChild: Center(
-          child: CircularProgressIndicator(
-            color: Colors.grey,
-          ),
+          child: CircularProgressIndicator(),
         ),
         query: databaseRef,
         shrinkWrap: true,
@@ -82,12 +81,12 @@ class _viewdataState extends State<viewdata> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: double.infinity,
-              height: 210,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.grey.shade200,
+                    Colors.grey.shade400,
                     Colors.grey.shade100,
                   ],
                 ),
@@ -100,8 +99,36 @@ class _viewdataState extends State<viewdata> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage("image/user.jpg"),
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.grey),
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                              imageUrl: a['url'],
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    color: Colors.white,
+                                  ),
+                                );
+                              },
+                              errorWidget: (context, url, error) {
+                                return CircleAvatar(
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 30,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
                         IconButton(
                             onPressed: () {
@@ -114,12 +141,22 @@ class _viewdataState extends State<viewdata> {
                                       actions: [
                                         ElevatedButton(
                                             onPressed: () async {
-                                              Navigator.push(
-                                                  context,
+                                              Navigator.pop(context);
+                                              Navigator.push(context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Updatedata(),
-                                                  ));
+                                                      builder: (context) {
+                                                return Updatedata(
+                                                  a['key'],
+                                                  a['id'],
+                                                  a['Name'],
+                                                  a['designation'],
+                                                  a['contact'],
+                                                  a['salary'],
+                                                  a['email'],
+                                                  a['gender'],
+                                                  a['url'],
+                                                );
+                                              }));
                                             },
                                             child: Text("Update")),
                                         ElevatedButton(
@@ -165,6 +202,7 @@ class _viewdataState extends State<viewdata> {
                       ],
                     ),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 10.0, left: 35, right: 10),
@@ -173,7 +211,7 @@ class _viewdataState extends State<viewdata> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text("${a['gender'].toString()}"),
+                        Text("${a['contact'].toString()}"),
                       ],
                     ),
                   ),
@@ -185,7 +223,19 @@ class _viewdataState extends State<viewdata> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text("${a['contact'].toString()}"),
+                        Text("${a['designation'].toString()}"),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(top: 10.0, left: 35, right: 10),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("${a['gender'].toString()}"),
                       ],
                     ),
                   ),

@@ -34,6 +34,7 @@ class _shareState extends State<share> {
 
       case socialsharing.twitter:
         if (shareText.text.isNotEmpty) {
+
           response = await flutterShareMe.shareToTwitter(msg: shareText.text);
         } else {
           Fluttertoast.showToast(

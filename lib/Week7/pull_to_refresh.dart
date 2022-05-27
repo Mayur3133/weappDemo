@@ -16,7 +16,7 @@ class _UserListState extends State<UserList> {
     }
   }
 
-  final String apiUrl = "https://randomuser.me/api/?results=1000";
+  final String apiUrl = "https://randomuser.me/api/?results=100";
 
   List userdata = [];
 

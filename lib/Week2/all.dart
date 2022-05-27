@@ -8,7 +8,6 @@ class all extends StatefulWidget {
 }
 
 class _allState extends State<all> {
-
   List<model> lst = [
     model(
       image: "image/lat.jpg",
@@ -580,7 +579,8 @@ class _allState extends State<all> {
                 ),
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.only(left: 5, top: 10, bottom: 5, right: 5),
+                    margin:
+                        EdgeInsets.only(left: 5, top: 10, bottom: 5, right: 5),
                     alignment: Alignment.center,
                     // height: size.height * 0.25,
                     // width: size.width * 0.06,
@@ -612,21 +612,25 @@ class _allState extends State<all> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Card(
-                                      child: Text(lst[index].top,
-                                          style: TextStyle(
-                                            color: Colors.orange[800],
-                                            // backgroundColor: Colors.white
-                                          )),
+                                    Container(
+                                      child: Card(
+                                        child: Text(lst[index].top,
+                                            style: TextStyle(
+                                              color: Colors.orange[800],
+                                              // backgroundColor: Colors.white
+                                            )),
+                                      ),
                                     ),
                                     Container(
                                       width: size.width * 0.35,
-                                      margin: EdgeInsets.only(right: 50, top: 70),
+                                      margin:
+                                          EdgeInsets.only(right: 60, top: 65),
                                       decoration: BoxDecoration(
                                         color: Colors.blue,
                                         borderRadius: const BorderRadius.only(
                                             topRight: Radius.elliptical(5, 5),
-                                            bottomRight: Radius.elliptical(5, 5)),
+                                            bottomRight:
+                                                Radius.elliptical(5, 5)),
                                       ),
                                       child: Text(
                                         lst[index].flat,
@@ -637,11 +641,11 @@ class _allState extends State<all> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      const EdgeInsets.only(top: 5, right: 5),
+                                      padding: const EdgeInsets.only(
+                                          top: 5, right: 5),
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             alignment: Alignment.center,
@@ -649,10 +653,13 @@ class _allState extends State<all> {
                                               color: lst[index].pro != ''
                                                   ? Colors.red[400]
                                                   : Colors.transparent,
-                                              borderRadius: const BorderRadius.only(
-                                                  topRight: Radius.elliptical(5, 5),
-                                                  bottomRight:
-                                                  Radius.elliptical(5, 5)),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topRight: Radius
+                                                          .elliptical(5, 5),
+                                                      bottomRight:
+                                                          Radius.elliptical(
+                                                              5, 5)),
                                             ),
                                             child: Text(
                                               lst[index].pro,
@@ -666,9 +673,9 @@ class _allState extends State<all> {
                                             alignment: Alignment.center,
                                             height: size.width * 0.05,
                                             decoration: BoxDecoration(
-                                              color:  Colors.green[500],
+                                              color: Colors.green[500],
                                               borderRadius:
-                                              BorderRadius.circular(5),
+                                                  BorderRadius.circular(5),
                                             ),
                                             child: Text(
                                               lst[index].rate,
@@ -689,8 +696,8 @@ class _allState extends State<all> {
                           ],
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsets.only(top: 5, left: 3, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              top: 5, left: 3, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1126,7 +1133,6 @@ class _allState extends State<all> {
     );
   }
 }
-
 
 class model {
   final String image;

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertask/week9-10/rdbms/viewdata.dart';
+import 'package:image_picker/image_picker.dart';
 
 class addemp extends StatefulWidget {
   const addemp({Key? key}) : super(key: key);
@@ -40,6 +44,8 @@ class _addempState extends State<addemp> {
 
   bool status = false;
   String vlu = '';
+  File? _image;
+
   final auth = FirebaseAuth.instance;
   final databaseref = FirebaseDatabase.instance.ref('Employe');
 
@@ -63,6 +69,28 @@ class _addempState extends State<addemp> {
         child: ListView(
           padding: EdgeInsets.only(top: 100, left: 20, right: 20),
           children: [
+            InkWell(
+              onTap: () async {
+                final photo = await ImagePicker.platform
+                    .getImage(source: ImageSource.gallery, imageQuality: 50);
+                _image = File(photo!.path);
+                setState(() {});
+              },
+              child: _image != null
+                  ? Container(
+                  height: 100,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(_image!), fit: BoxFit.cover),
+                      shape: BoxShape.circle,
+                      color: Colors.grey))
+                  : Container(
+                  height: 100,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.grey)),
+            ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: TextField(
@@ -211,7 +239,8 @@ class _addempState extends State<addemp> {
               Text('Female'),
             ]),
             Container(
-              padding: EdgeInsets.only(top: 20, left: 90, right: 90),
+              height: 40,
+              padding: EdgeInsets.only(left: 110, right: 110),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightBlue,
@@ -229,9 +258,9 @@ class _addempState extends State<addemp> {
                   // String gender = tgender.text;
 
                   bool contactvalid =
-                      RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(contact);
+                  RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(contact);
                   bool emaValid = RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(email);
 
                   if (name.isEmpty) {
@@ -262,51 +291,73 @@ class _addempState extends State<addemp> {
                     idstatus = true;
                     iderror = "Please enter your id";
                   }
-                  // if (gender.isEmpty) {
-                  //   genderstatus = true;
-                  //   gendererror =
-                  //   "Confirm Password or password not match...";
-                  // }
+
                   if (salary.isEmpty) {
                     salarystatus = true;
                     salaryerror = "Please Enter salary";
                   } else {
-                    // print("-----------------------------------------------");
-                    String? key = databaseref.child('Employe').push().key;
-                    databaseref.child('Employe').child(key!).set({
-                      'id': tid.text,
-                      'Name': tname.text,
-                      'email': temail.text,
-                      'contact': tcontact.text,
-                      'designation': tdesignation.text,
-                      'salary': tsalary.text,
-                      'gender': vlu.toString()
-                    });
-                    tid.clear();
-                    tname.clear();
-                    temail.clear();
-                    tcontact.clear();
-                    tdesignation.clear();
-                    tsalary.clear();
-                    vlu = '';
+                    if (_image == null) {} else {
+                      String filename = "id-${tid.text}-${tname.text}";
+                      final des = 'file/$filename';
+                      TaskSnapshot snapshot = await FirebaseStorage.instance
+                          .ref()
+                          .child(des)
+                          .putFile(_image!);
+                      final String downloadUrl =
+                      await snapshot.ref.getDownloadURL();
+                      String? key = databaseref
+                          .child('Employe')
+                          .push()
+                          .key;
+                      databaseref.child('Employe').child(key!).set({
+                        'id': tid.text,
+                        'Name': tname.text,
+                        'email': temail.text,
+                        'contact': tcontact.text,
+                        'designation': tdesignation.text,
+                        'salary': tsalary.text,
+                        'gender': vlu.toString(),
+                        'key': key,
+                        'url': downloadUrl,
+                      });
+                      tid.clear();
+                      tname.clear();
+                      temail.clear();
+                      tcontact.clear();
+                      tdesignation.clear();
+                      tsalary.clear();
+                      vlu = '';
+                      _image = null;
+                    }
                   }
                   Set();
                 },
                 child: Text(
-                  "  Add ",
-                  style: TextStyle(fontSize: 25),
+                  " Add ",
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => viewdata(),
-                      ));
-                },
-                child: Text("View"))
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              height: 40,
+              padding: EdgeInsets.only(left: 110, right: 110),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.lightBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => viewdata(),
+                        ));
+                  },
+                  child: Text("View")),
+            )
           ],
         ),
       ),

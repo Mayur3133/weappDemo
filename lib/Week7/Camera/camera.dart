@@ -692,20 +692,20 @@ class _camState extends State<cam> with WidgetsBindingObserver {
                                   )
                                       : null,
                                 ),
-                                child: vidfl != null
-                                    ? ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(
-                                      8.0),
-                                  child: AspectRatio(
-                                    aspectRatio:
-                                    videoController!
-                                        .value.aspectRatio,
-                                    child: VideoPlayer(
-                                        videoController!),
-                                  ),
-                                )
-                                    : Container(),
+                                // child: vidfl != null
+                                //     ? ClipRRect(
+                                //   borderRadius:
+                                //   BorderRadius.circular(
+                                //       8.0),
+                                //   child: AspectRatio(
+                                //     aspectRatio:
+                                //     videoController!
+                                //         .value.aspectRatio,
+                                //     child: VideoPlayer(
+                                //         videoController!),
+                                //   ),
+                                // )
+                                //     : Container(),
                               ),
                             ),
                           ],
