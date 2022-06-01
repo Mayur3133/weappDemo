@@ -2,89 +2,94 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'post screen.dart';
-import 'utils.dart';
-
 class dynamiclink extends StatefulWidget {
+  const dynamiclink({Key? key}) : super(key: key);
+
   @override
-  _dynamiclinkState createState() => _dynamiclinkState();
+  State<dynamiclink> createState() => _dynamiclinkState();
 }
 
 class _dynamiclinkState extends State<dynamiclink> {
-  String url = "";
+  String Dynamicurl = "";
 
-  @override
-  void initState() {
-    initDynamicLinks();
-    super.initState();
-  }
-
-  ///Retreive dynamic link firebase.
-  void initDynamicLinks() async {
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
-
-    if (deepLink != null) {
-      handleDynamicLink(deepLink);
-    }
-    FirebaseDynamicLinks.instance.onLink;
-  }
-
-  handleDynamicLink(Uri url) {
-    List<String> separatedString = [];
-    separatedString.addAll(url.path.split('/'));
-    if (separatedString[1] == "post") {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PostScreen(separatedString[2])));
-    }
-  }
+  final String DynamicLinkApp = 'https://weeklytask.page.link/naxz';
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "DynamicLink",
+        ),
+
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () async {
-                  try {
-                    url = await AppUtils.buildDynamicLink();
-                  } catch (e) {
-                    print(e);
-                  }
-                  setState(() {});
-                },
-                child: Text(
-                  "Generate Dynamic Link",
-                  style: TextStyle(
-                    fontSize: 20,
+          children: [
+            Container(
+              child: Column(
+                children: [
+                  if (Dynamicurl.isNotEmpty)
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(Dynamicurl),
+                          IconButton(
+                            onPressed: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: Dynamicurl));
+                            },
+                            icon: Icon(Icons.copy),
+                          ),
+                        ],
+                      ),
+                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            if (url.isNotEmpty)
-              Center(
-                child: RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      text: url,
-                      style: TextStyle(fontSize: 20, color: Colors.black54)),
-                  WidgetSpan(
-                      child: IconButton(
-                          onPressed: () {
-                            Clipboard.setData(ClipboardData(text: url));
-                          },
-                          icon: Icon(Icons.copy))),
-                ])),
+                  ElevatedButton(
+                    onPressed: () {
+                      buildDynamicLink(true);
+                    },
+                    child: Text(
+                      "App Link",
+                    ),
+                  ),
+                ],
               ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> buildDynamicLink(bool short) async {
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      link: Uri.parse(DynamicLinkApp),
+      uriPrefix: "https://weeklytask.page.link",
+      androidParameters: AndroidParameters(
+        packageName: "com.example.fluttertask.android",
+        minimumVersion: 0,
+      ),
+      iosParameters: IOSParameters(
+        bundleId: "com.example.fluttertask.ios",
+        minimumVersion: '0',
+      ),
+    );
+    Uri url;
+    if (short) {
+       ShortDynamicLink shortLink =
+      await dynamicLinks.buildShortLink(parameters);
+      url = shortLink.shortUrl;
+    } else {
+      url = await dynamicLinks.buildLink(parameters);
+    }
+
+    setState(() {
+      Dynamicurl = url.toString();
+    });
   }
 }

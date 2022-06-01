@@ -73,9 +73,11 @@ class _naviState extends State<navi> {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushAndRemoveUntil (context, MaterialPageRoute(builder:(context){
-                  return homepage();
-                }),(route) => false );
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => newscn(),));
+                // Navigator.pushAndRemoveUntil (context, MaterialPageRoute(builder:(context){
+                //   return homepage();
+                // }),(route) => false );
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20,left: 70,right: 70),
@@ -98,6 +100,23 @@ class _naviState extends State<navi> {
 
           ],
         ),
+      ),
+    );
+  }
+}
+
+class newscn extends StatelessWidget {
+  const newscn({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(onPressed: () {
+          Navigator.pushAndRemoveUntil (context, MaterialPageRoute(builder:(context){
+            return navi();
+          }),(route) => false );
+        }, child: Text("Click")),
       ),
     );
   }

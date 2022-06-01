@@ -61,8 +61,7 @@ class _viewpState extends State<viewp> {
                   child: InkWell(
                     onDoubleTap: () async {
                       DateTime now = DateTime.now();
-                      String doneDate =
-                          DateFormat('MM-dd-yyyy').format(now);
+                      String doneDate = DateFormat('MM-dd-yyyy').format(now);
 
                       if (data['status'] == "Pending") {
                         await firestore.doc(data['id']).update({
@@ -73,7 +72,7 @@ class _viewpState extends State<viewp> {
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 120,
+                      // height: 120,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
@@ -84,6 +83,8 @@ class _viewpState extends State<viewp> {
                         ),
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +113,8 @@ class _viewpState extends State<viewp> {
                                                         return updatedatapage(
                                                             data['id'],
                                                             data['title'],
-                                                            data['description']);
+                                                            data[
+                                                                'description']);
                                                       }));
                                                     },
                                                     child: Text("Update")),
@@ -129,27 +131,24 @@ class _viewpState extends State<viewp> {
                                     },
                                     icon: Icon(Icons.menu)),
                               ]),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Title: ${data['title'].toString()}",
-                                      softWrap: true,
-                                    ),
-                                    Text(
-                                      "Description: ${data['description'].toString()}",
-                                      softWrap: true,
-                                    ),
-                                    Text(
-                                        "Done_Date: ${data['donedate'].toString()}"),
-                                  ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Title:-  ${data['title'].toString()}",
+                                  softWrap: true,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "Description:-  ${data['description'].toString()}",
+                                  overflow: TextOverflow.visible,
+                                  softWrap: true,
+                                ),
+                                Text(
+                                    "Done_Date:-  ${data['donedate'].toString()}"),
+                              ],
+                            ),
                           ),
                         ],
                       ),

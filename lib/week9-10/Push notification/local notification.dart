@@ -94,6 +94,7 @@ class _localnotiState extends State<localnoti> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Local Notification"),),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -102,35 +103,36 @@ class _localnotiState extends State<localnoti> {
               onPressed: () {
                 displayingNotification();
               },
-              child: Text("Notification With sound"),
+              child: Text("   Notification With sound   "),
             ),
             ElevatedButton(
               onPressed: () {
-                showNotificationWithProgress();
+                notificationwithprogress();
               },
-              child: Text("showNotificationWithProgress"),
+              child: Text(" Notification With Progress"),
             ),
             ElevatedButton(
               onPressed: () {
                 scheduleNotification();
               },
-              child: Text("scheduleNotification"),
+              child: Text("Show schedule Notification"),
             ),
             ElevatedButton(
               onPressed: () {
-                showNotificationWithImage();
+                notificationwithimage();
               },
-              child: Text("showNotificationWithImage"),
+              child: Text(" show Notification With Img"),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return nosound();
-                  },
-                ));
+                _showNotificationWithoutSound();
+                // Navigator.push(context, MaterialPageRoute(
+                //   builder: (context) {
+                //     return nosound();
+                //   },
+                // ));
               },
-              child: Text("Notification Without sound"),
+              child: Text(" Notification Without sound  "),
             ),
           ],
         ),
@@ -158,7 +160,7 @@ class _localnotiState extends State<localnoti> {
         platformChannelSpecifics);
   }
 
-  Future<void> showNotificationWithProgress() async {
+  Future<void> notificationwithprogress() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'indeterminate progress channel',
@@ -183,7 +185,7 @@ class _localnotiState extends State<localnoti> {
         payload: 'item x');
   }
 
-  Future<void> showNotificationWithImage() async {
+  Future<void> notificationwithimage() async {
     var bigPictureStyleInformation = BigPictureStyleInformation(
         DrawableResourceAndroidBitmap("ic_launcher"),
         largeIcon: DrawableResourceAndroidBitmap("ic_launcher"),
@@ -202,5 +204,22 @@ class _localnotiState extends State<localnoti> {
     await flutterLocalNotificationsPlugin.show(
         0, 'Image', 'Local Notification With Image', platform,
         payload: 'big image notifications');
+  }
+
+  Future _showNotificationWithoutSound() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'your channel id', 'your channel name',
+        playSound: false, importance: Importance.max, priority: Priority.high);
+    var iOSPlatformChannelSpecifics =
+    new IOSNotificationDetails(presentSound: false);
+    var platformChannelSpecifics = new NotificationDetails(
+        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'New Post',
+      'How to Show Notification in Flutter',
+      platformChannelSpecifics,
+      payload: 'No_Sound',
+    );
   }
 }

@@ -44,6 +44,7 @@
 
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class _viewdataState extends State<viewdata> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: double.infinity,
-              height: 200,
+              height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient: LinearGradient(
@@ -141,6 +142,8 @@ class _viewdataState extends State<viewdata> {
                                       actions: [
                                         ElevatedButton(
                                             onPressed: () async {
+                                              // FirebaseAnalytics.instance.logEvent(name: 'Update');
+
                                               Navigator.pop(context);
                                               Navigator.push(context,
                                                   MaterialPageRoute(
@@ -161,6 +164,8 @@ class _viewdataState extends State<viewdata> {
                                             child: Text("Update")),
                                         ElevatedButton(
                                             onPressed: () async {
+                                              FirebaseAnalytics.instance.logEvent(name: 'Delete');
+
                                               databaseRef
                                                   .child(snapshot.key!)
                                                   .remove();
@@ -202,7 +207,6 @@ class _viewdataState extends State<viewdata> {
                       ],
                     ),
                   ),
-
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 10.0, left: 35, right: 10),
@@ -229,7 +233,7 @@ class _viewdataState extends State<viewdata> {
                   ),
                   Padding(
                     padding:
-                    const EdgeInsets.only(top: 10.0, left: 35, right: 10),
+                        const EdgeInsets.only(top: 10.0, left: 35, right: 10),
                     child: Row(
                       children: [
                         SizedBox(

@@ -38,7 +38,7 @@ class _firestrState extends State<firestr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("Firestore Database")),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -98,7 +98,7 @@ class _firestrState extends State<firestr> {
                     ),
                   ),
                   onPressed: () {
-                    DateTime now= DateTime.now();
+                    DateTime now = DateTime.now();
                     String ttitle = title.text;
                     String tdescription = description.text;
                     String createdate = DateFormat("MM--dd-yyyy ").format(now);
@@ -113,11 +113,11 @@ class _firestrState extends State<firestr> {
                         descriptionerror = "Please write description";
                       } else {
                         firestore.add({
-                          'status':'Pending',
+                          'status': 'Pending',
                           'title': title.text, // John Doe
                           'description': description.text,
-                          'createdate':createdate.toString(),
-                          'donedate':""
+                          'createdate': createdate.toString(),
+                          'donedate': ""
                         });
                         title.clear();
                         description.clear();
@@ -128,6 +128,9 @@ class _firestrState extends State<firestr> {
                         // ));
                       }
                     });
+                    Center(
+                      child: CircularProgressIndicator(),
+                    );
                   },
                   child: Text("Add")),
             ),

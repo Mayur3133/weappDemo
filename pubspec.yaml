@@ -108,7 +108,9 @@ dependencies:
   carousel_slider:
   cloud_firestore:
   flutter_local_notifications:
-  firebase_dynamic_links:
+  firebase_dynamic_links: ^4.2.5
+  firebase_crashlytics:
+  firebase_analytics:
 dev_dependencies:
   flutter_test:
     sdk: flutter
