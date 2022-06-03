@@ -232,7 +232,6 @@ class _homepageState extends State<homepage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.black54,
-
                         ),
 
                         //width: double.infinity,
@@ -307,3 +306,5 @@ class _homepageState extends State<homepage> {
     );
   }
 }
+
+

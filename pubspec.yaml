@@ -111,6 +111,7 @@ dependencies:
   firebase_dynamic_links: ^4.2.5
   firebase_crashlytics:
   firebase_analytics:
+  get: ^4.6.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
