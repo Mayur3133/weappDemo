@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertask/w1.dart';
 import 'package:fluttertask/w11.dart';
+import 'package:fluttertask/w12.dart';
 import 'package:fluttertask/w2.dart';
 import 'package:fluttertask/w3.dart';
 import 'package:fluttertask/w4.dart';
@@ -298,6 +299,37 @@ class _homepageState extends State<homepage> {
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left:35),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return week12();
+                            },
+                          ));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 15),
+                          height: 130,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.black54,
+                          ),
+                          //width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              '     Week-12    ',
+                              style: TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ],
@@ -306,5 +338,3 @@ class _homepageState extends State<homepage> {
     );
   }
 }
-
-

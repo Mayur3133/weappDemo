@@ -8,7 +8,8 @@ class getx extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'GetX Demo',home: gethomepage(),
+      title: 'GetX Demo',
+      home: gethomepage(),
     );
   }
 }

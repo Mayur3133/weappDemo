@@ -56,7 +56,6 @@ dependencies:
   google_api_headers:
   google_directions_api:
   mailer:
-  provider:
   firebase_core:
   firebase_auth: ^3.3.14
   google_sign_in: ^5.3.0
@@ -112,6 +111,12 @@ dependencies:
   firebase_crashlytics:
   firebase_analytics:
   get: ^4.6.5
+  file_saver: ^0.1.0
+  syncfusion_flutter_xlsio:
+  provider:
+  flutter_bloc: ^8.0.1
+  bloc: ^8.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

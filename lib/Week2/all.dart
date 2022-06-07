@@ -14,7 +14,7 @@ class _allState extends State<all> {
       flat: ' ⦿ Flat 15-25% OFF ',
       pro: " ⦿ PRO ",
       rate: ' 4.5 ★ ',
-      top: ' ★Top Rated  ',
+      top: ' ★ Top Rated  ',
       title: 'La Tavern gril',
       subtitle: 'Japanese, Korean',
     ),
@@ -32,7 +32,7 @@ class _allState extends State<all> {
       flat: ' ⦿ FLAT 10-25% OFF ',
       pro: ' ⦿ PRO',
       rate: ' 4.5 ★ ',
-      top: ' ★Top Rated  ',
+      top: ' ★ Top Rated  ',
       title: 'Pizza',
       subtitle: 'Asian Italian',
     ),
@@ -612,8 +612,17 @@ class _allState extends State<all> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      child: Card(
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Container(
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topRight:
+                                                    Radius.elliptical(5, 5),
+                                                bottomRight:
+                                                    Radius.elliptical(5, 5)),
+                                            color: Colors.white),
                                         child: Text(lst[index].top,
                                             style: TextStyle(
                                               color: Colors.orange[800],
@@ -622,7 +631,7 @@ class _allState extends State<all> {
                                       ),
                                     ),
                                     Container(
-                                      width: size.width * 0.35,
+                                      // width: size.width * 0.35,
                                       margin:
                                           EdgeInsets.only(right: 60, top: 65),
                                       decoration: BoxDecoration(

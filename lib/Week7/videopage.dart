@@ -14,7 +14,7 @@ class recordingpage extends StatefulWidget {
 }
 
 class _recordingpageState extends State<recordingpage> {
-   VideoPlayerController? videocontroller;
+  VideoPlayerController? videocontroller;
 
   @override
   void dispose() {
@@ -33,7 +33,7 @@ class _recordingpageState extends State<recordingpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       // title: const Text('Preview'),
+        // title: const Text('Preview'),
         elevation: 0,
         backgroundColor: Colors.grey,
         actions: [
@@ -50,8 +50,8 @@ class _recordingpageState extends State<recordingpage> {
         child: Container(
           // padding: EdgeInsets.only(top: 50),
           // alignment: Alignment.center,
-          width: 500,
-          height: 500,
+          // width: 500,
+          // height: 500,
           child: FutureBuilder(
             future: _initVideoPlayer(),
             builder: (context, state) {

@@ -31,16 +31,22 @@ class _sliverState extends State<sliver> {
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
               return Card(
-                margin: const EdgeInsets.all(15),
-                child: Container(
-                  color: Colors.yellow[100 * (index % 8 + 1)],
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Item $index",
-                    style: const TextStyle(fontSize: 20),
-                  ),
+                shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
+                elevation: 10,
+                margin: const EdgeInsets.all(10),
+                child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.yellow[100 * (index % 5 + 1)],
+                    ),
+                    child: Text(
+                      "Item $index",
+                      style: const TextStyle(fontSize: 20),
+                    )),
               );
             },
             childCount: 100, // 1000 list items
