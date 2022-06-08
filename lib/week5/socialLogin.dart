@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dash.dart';
+import 'googlelogin.dart';
 import 'facebooklogin.dart';
 
 class Googlelogin extends StatefulWidget {
@@ -28,10 +28,7 @@ class _GoogleloginState extends State<Googlelogin> {
       appBar: AppBar(
         title: const Text(
           "Social Media Login",
-          style: TextStyle(fontSize: 20),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.black45,
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),

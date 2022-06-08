@@ -21,57 +21,39 @@ class _G_F_ScreenState extends State<G_F_Screen> {
         title: Text("Login Page"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // InkWell(
-            //   onTap: _auth.googleAuth(),
-            //   child: Container(
-            //     height: 100,
-            //     width: 60,
-            //     decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //         color: Colors.indigo,
-            //         image: DecorationImage(
-            //             image: AssetImage("image/glogo.jpg"),
-            //             fit: BoxFit.cover)),
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap:   _auth.facebookAuth(),
-            //   child: Container(
-            //     height: 100,
-            //     width: 60,
-            //     decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //         color: Colors.indigo,
-            //         image: DecorationImage(
-            //             image: AssetImage("image/fblogo.png"),
-            //             fit: BoxFit.cover)),
-            //   ),
-            // ),
-
-            ElevatedButton.icon(
-                onPressed: () {
-                  _auth.googleAuth();
-                },
-                icon: Icon(
-                  FontAwesomeIcons.google,
-                  color: Colors.white,
-                ),
-                label: Text("Login With Google")),
-            ElevatedButton.icon(
-                onPressed: () {
-                  _auth.facebookAuth();
-                },
-                icon: Icon(
-                  FontAwesomeIcons.facebook,
-                  color: Colors.white,
-                ),
-                label: Text("Login With Facebook")),
+            InkWell(
+              onTap:()=> _auth.googleAuth(),
+              child: Container(
+                height: 100,
+                width: 60,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.indigo,
+                    image: DecorationImage(
+                        image: AssetImage("image/glogo.jpg"),
+                        fit: BoxFit.cover)),
+              ),
+            ),
+            SizedBox(width: 20),
+            InkWell(
+              onTap: ()=>  _auth.facebookAuth(),
+              child: Container(
+                height: 100,
+                width: 60,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.indigo,
+                    image: DecorationImage(
+                        image: AssetImage("image/fblogo.png"),
+                        fit: BoxFit.cover)),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
