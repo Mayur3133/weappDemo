@@ -1,99 +1,3 @@
-// import 'dart:convert';
-// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-// import 'package:http/http.dart' as http;
-//
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:fluttertask/week4/email.dart';
-// import 'package:fluttertask/week5/dash.dart';
-//
-// class facebooklogin extends StatefulWidget {
-//   Map userdata;
-//
-//   facebooklogin(this.userdata);
-//
-//   // const fbpage({Key? key}) : super(key: key);
-//
-//   @override
-//   State<facebooklogin> createState() => _facebookloginState();
-// }
-//
-// class _facebookloginState extends State<facebooklogin> {
-//
-//   var name = '';
-//   var email = '';
-//    var image = '';
-//
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//      name = widget.userdata['name'];
-//      email = widget.userdata['email'];
-//     // image = widget.userdata['image'];
-//   }
-//
-//   // Future<void> autoLoginCheck() async {
-//   //   final bool loginCheck = await facebookSignIn.isLoggedIn;
-//   //   setState(() {
-//   //     alreadyLogin = loginCheck;
-//   //   });
-//   //
-//   //   alreadyLogin ? getDataIfAlreadyLogin() : faslse();
-//   // }
-//   //
-//   // void faslse() {
-//   //   setState(() {
-//   //     gettingSession = false;
-//   //   });
-//   // }
-//   static final FacebookLogin facebookSignIn = new FacebookLogin();
-//
-//   Future<void> getDataIfAlreadyLogin() async {
-//        var alreadyLoginToken = await facebookSignIn.accessToken;
-//     final graphResponse = await http.get(Uri.parse(
-//         'https://graph.facebook.com/v2.12/me?fields=first_name,picture&access_token=${alreadyLoginToken!
-//             .token}'),
-//     );
-//     final profile = jsonDecode(graphResponse.body);
-//     print(profile['picture']['data']['url']);
-//   //  print(profile['first_name']);
-//     print(graphResponse.body);
-//     setState(() {
-//       // login = true;
-//       // gettingSession = false;
-//       // name = profile['first_name'];
-//       image = profile['picture']['data']['url'];
-//     });
-//   }
-//     @override
-//     Widget build(BuildContext context) {
-//       return Scaffold(
-//         body: Center(
-//           child: Column(mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               image != ""
-//                   ? CircleAvatar(
-//                 backgroundImage: NetworkImage(image),
-//                 radius: 50,
-//                 backgroundColor: Color(0x00000000),
-//               )
-//                   : Container(),
-//               Text(name),
-//               Text(email),
-//               ElevatedButton(
-//                   onPressed: () async {
-//                     await FirebaseServices().Facebooklogout(context);
-//                   },
-//                   child: Text("Logout"))
-//             ],
-//           ),
-//         ),
-//       );
-//     }
-// }
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -167,8 +71,8 @@ class _FaceBookLoginDemoState extends State<FaceBookLoginDemo> {
   }
 
   Future<Null> _login() async {
-   // final FacebookLoginResult result = await facebookSignIn.logIn(permissions: ['email']);
-    final result  =  await FacebookAuth.instance.login(permissions: ['email']);
+    // final FacebookLoginResult result = await facebookSignIn.logIn(permissions: ['email']);
+    final result = await FacebookAuth.instance.login(permissions: ['email']);
     switch (result.status) {
       case LoginStatus.success:
         final AccessToken? accessToken = result.accessToken;
@@ -213,8 +117,8 @@ class _FaceBookLoginDemoState extends State<FaceBookLoginDemo> {
       setState(() {
         login = false;
         name = '';
-        lname='';
-        email='';
+        lname = '';
+        email = '';
         image = '';
         buttonText = "Login";
       });
@@ -253,14 +157,14 @@ class _FaceBookLoginDemoState extends State<FaceBookLoginDemo> {
                                     backgroundColor: Color(0x00000000),
                                   )
                                 : Container(),
-                            Text( '${name} ${lname}'),
-                  //         Text(lname),
-                           Text(email),
+                            Text('${name} ${lname}'),
+                            //         Text(lname),
+                            Text(email),
 
-                           // Text(message),
+                            // Text(message),
                             ElevatedButton(
                               onPressed: _logOut,
-                             // color: Colors.red,
+                              // color: Colors.red,
                               child: new Text(buttonText),
                             )
                           ],

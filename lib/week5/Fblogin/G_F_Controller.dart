@@ -10,7 +10,7 @@ import 'HomeScreen.dart';
 import 'loginScrenn.dart';
 
 class FGAuthControler extends GetxController {
-  static final auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   Rx<AuthUserData> userdata = AuthUserData().obs;
 
   RxString providerId = "".obs;
@@ -18,12 +18,16 @@ class FGAuthControler extends GetxController {
   googleAuth() async {
     try {
       final _pref = await SharedPreferences.getInstance();
+      print("helooooooooooooooo");
       final googleSignIn = await GoogleSignIn().signIn();
+      print("helooooooooooooooo-----");
 
       final authprovider = await googleSignIn!.authentication;
+      print("helooooooooooooooo---------------------");
 
       final credential = GoogleAuthProvider.credential(
           accessToken: authprovider.accessToken, idToken: authprovider.idToken);
+      print("helooooooooooooooo----------------");
 
       Get.dialog(
           Material(
@@ -69,7 +73,7 @@ class FGAuthControler extends GetxController {
       if (result.status == LoginStatus.success) {
         print("2");
         final credential =
-            FacebookAuthProvider.credential(result.accessToken!.token);
+        FacebookAuthProvider.credential(result.accessToken!.token);
         final data = await FacebookAuth.instance
             .getUserData(fields: "name,email,picture.width(200)");
 

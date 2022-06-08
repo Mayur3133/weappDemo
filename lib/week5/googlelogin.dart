@@ -5,8 +5,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'facebooklogin.dart';
-import 'gogglelogin.dart';
-
+import 'socialLogin.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -16,8 +15,6 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +22,10 @@ class _homeState extends State<home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Image.network(FirebaseAuth.instance.currentUser!.photoURL!,fit: BoxFit.cover,),
+            Image.network(
+              FirebaseAuth.instance.currentUser!.photoURL!,
+              fit: BoxFit.cover,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -49,7 +49,6 @@ class _homeState extends State<home> {
   }
 }
 
-
 class FirebaseServices {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
@@ -57,10 +56,10 @@ class FirebaseServices {
   signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-      await _googleSignIn.signIn();
+          await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+            await googleSignInAccount.authentication;
         final AuthCredential authCredential = GoogleAuthProvider.credential(
             accessToken: googleSignInAuthentication.accessToken,
             idToken: googleSignInAuthentication.idToken);
@@ -76,26 +75,4 @@ class FirebaseServices {
     await _auth.signOut();
     await _googleSignIn.signOut();
   }
-  //
-  // Facebook(context) async {
-  //   try {
-  //     final result = await FacebookAuth.i.login(permissions: ['email']);
-  //     if (result.status == LoginStatus.success) {
-  //       final userdata = await FacebookAuth.i.getUserData();
-  //       Navigator.pushReplacement(context, MaterialPageRoute(
-  //         builder: (context) {
-  //           return FaceBookLoginDemo();
-  //         },
-  //       ));
-  //
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
-  // Facebooklogout(BuildContext context) async {
-  //   await FacebookAuth.i.logOut();
-  //   Navigator.pop(context);
-  }
-
+}

@@ -57,8 +57,8 @@ class _updState extends State<upd> {
               children: [
                 InkWell(
                   onTap: () async {
-                    final photo = await ImagePicker.platform
-                        .getImage(source: ImageSource.gallery,imageQuality: 50);
+                    final photo = await ImagePicker.platform.getImage(
+                        source: ImageSource.gallery, imageQuality: 50);
 
                     _image = File(photo!.path);
                     setState(() {});

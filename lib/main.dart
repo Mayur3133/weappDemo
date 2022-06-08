@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertask/homepage.dart';
+import 'package:get/get.dart';
 
 import 'week9-10/Push notification/push notification.dart';
 
@@ -70,7 +71,7 @@ Future<void> main() async {
   // await Stripe.instance.applySettings();
   await Firebase.initializeApp();
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     home: homepage(),
     navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)],
     debugShowCheckedModeBanner: false,
