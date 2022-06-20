@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertask/Week3/3.1.dart';
 import 'package:fluttertask/Week3/3.2.dart';
 import 'package:fluttertask/Week3/3.3.dart';
-
+import 'Week3/gesturedemo.dart';
 import 'Week3/getdata.dart';
 
 class week3 extends StatefulWidget {
@@ -46,6 +46,32 @@ class _week3State extends State<week3> {
                   child: Center(
                     child: Text(
                       'Gestures',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return gestureexm();
+                  },
+                ));
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15),
+                height: 130,
+                //width: double.infinity,
+                child: Card(
+                  elevation: 30,
+                  color: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'GesturesDemo',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),

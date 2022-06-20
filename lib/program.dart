@@ -256,43 +256,63 @@
 // printf("\n\n");
 // }
 
+// import 'dart:io';
+//
+// void main() {
+//   var templist = [];
+//   var oddnumber;
+//   var evennumber;
+//   int even = 0;
+//   int odd = 0;
+//
+//   print("enter value:");
+//   var m = num.parse(stdin.readLineSync()!);
+//
+//   for (int k = 0; k < m; k++) {
+//     var vlu = num.parse(stdin.readLineSync()!);
+//     templist.add(vlu);
+//   }
+//   print(templist);
+//
+//   for (int i = 0; i < templist.length; i++) {
+//     if (templist[i] % 2 == 0) {
+//       even++;
+//       evennumber = templist[i];
+//     }
+//     if (templist[i] % 2 == 1) {
+//       odd++;
+//       oddnumber = templist[i];
+//     }
+//   }
+//
+//   if (odd == 1 && even == 1) {
+//     print('enter more then 2 numbers');
+//   }
+//   else if (even == 1) {
+//     print(evennumber);
+//   } else if (odd == 1) {
+//     print(oddnumber);
+//   } else {
+//     print("No value");
+//   }
+// }
+
 import 'dart:io';
 
 void main() {
-  var templist = [];
-  var oddnumber;
-  var evennumber;
-  int even = 0;
-  int odd = 0;
-
-  print("enter value:");
-  var m = num.parse(stdin.readLineSync()!);
-
-  for (int k = 0; k < m; k++) {
-    var vlu = num.parse(stdin.readLineSync()!);
-    templist.add(vlu);
-  }
-  print(templist);
-
-  for (int i = 0; i < templist.length; i++) {
-    if (templist[i] % 2 == 0) {
-      even++;
-      evennumber = templist[i];
+  double c = 1, k, i, j;
+  print("Enter number of rows: ");
+  var n = num.parse(stdin.readLineSync()!);
+  for (i = 0; i < n; i++) {
+    for (k = 1; k < n - i; k++)stdout.write(" ");
+    for (j = 0; j <= i; j++) {
+      if (j == 0)
+        c ;
+      else
+        c = (c * (i - j + 1) / j);
+      stdout.write(c.toInt());
+      stdout.write(" ");
     }
-    if (templist[i] % 2 == 1) {
-      odd++;
-      oddnumber = templist[i];
-    }
-  }
-
-  if (odd == 1 && even == 1) {
-    print('enter more then 2 numbers');
-  }
-  else if (even == 1) {
-    print(evennumber);
-  } else if (odd == 1) {
-    print(oddnumber);
-  } else {
-    print("No value");
+    print("\n");
   }
 }

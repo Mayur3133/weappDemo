@@ -1,4 +1,7 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertask/w1.dart';
 import 'package:fluttertask/w11.dart';
 import 'package:fluttertask/w12.dart';
@@ -11,6 +14,8 @@ import 'package:fluttertask/w7.dart';
 import 'package:fluttertask/w8.dart';
 import 'package:fluttertask/w9.dart';
 
+import 'main.dart';
+
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
 
@@ -19,6 +24,43 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title.toString()),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body.toString())],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+
+    getToken();
+  }
+
+  String? token;
+
+  getToken() async {
+    token = await FirebaseMessaging.instance.getToken();
+    setState(() {
+      token = token;
+    });
+    print("Token : - ${token}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -302,7 +344,7 @@ class _homepageState extends State<homepage> {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left:35),
+                      padding: EdgeInsets.only(left: 35),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
@@ -322,7 +364,8 @@ class _homepageState extends State<homepage> {
                           child: Center(
                             child: Text(
                               '     Week-12    ',
-                              style: TextStyle(fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),

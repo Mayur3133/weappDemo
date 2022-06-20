@@ -20,32 +20,32 @@ class _week11State extends State<week11> {
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 100, vertical: 50),
           children: [
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return getx();
-                  },
-                ));
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15),
-                height: 130,
-                //width: double.infinity,
-                child: Card(
-                  elevation: 30,
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'GetX',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return getx();
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'GetX',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(

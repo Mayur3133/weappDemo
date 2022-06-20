@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertask/Week7/Camera/camera.dart';
-import 'package:fluttertask/Week8/animation/animation.dart';
 
 import 'Week7/in app purchase.dart';
-import 'Week7/payment gateway.dart';
 import 'Week7/pull_to_refresh.dart';
 
 class week7 extends StatefulWidget {
@@ -74,32 +72,34 @@ class _week7State extends State<week7> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return InApp();
-                  },
-                ));
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15),
-                height: 130,
-                //width: double.infinity,
-                child: Card(
-                  elevation: 30,
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'In app Purchase',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return InApp();
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'In app Purchase',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
+
             // InkWell(
             //   onTap: () {
             //     Navigator.push(context, MaterialPageRoute(
@@ -126,7 +126,6 @@ class _week7State extends State<week7> {
             //     ),
             //   ),
             // ),
-
           ],
         ),
       ),

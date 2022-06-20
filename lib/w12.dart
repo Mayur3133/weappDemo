@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertask/week12/bloc/bloc.dart';
 import 'package:fluttertask/week12/provider.dart';
+import 'package:fluttertask/week12/screen1.dart';
 
 class week12 extends StatefulWidget {
   const week12({Key? key}) : super(key: key);
@@ -70,32 +71,32 @@ class _week12State extends State<week12> {
                   ),
                 ),
               ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(
-              //       builder: (context) {
-              //         return Container();
-              //       },
-              //     ));
-              //   },
-              //   child: Container(
-              //     margin: EdgeInsets.only(bottom: 15),
-              //     height: 130,
-              //     //width: double.infinity,
-              //     child: Card(
-              //       elevation: 30,
-              //       color: Colors.black54,
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(10)),
-              //       child: Center(
-              //         child: Text(
-              //           'Redux',
-              //           style: TextStyle(fontSize: 20, color: Colors.white),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return screen1();
+                    },
+                  ));
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  height: 130,
+                  //width: double.infinity,
+                  child: Card(
+                    elevation: 30,
+                    color: Colors.black54,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        'api',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ]),
       ),
     );

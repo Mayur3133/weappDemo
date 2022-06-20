@@ -129,34 +129,34 @@ class _week9State extends State<week9> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return MyHomePage(
-                      title: '',
-                    );
-                  },
-                ));
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15),
-                height: 130,
-                //width: double.infinity,
-                child: Card(
-                  elevation: 30,
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'pushNotification',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(
+            //       builder: (context) {
+            //         return MyHomePage(
+            //           title: '',
+            //         );
+            //       },
+            //     ));
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     height: 130,
+            //     //width: double.infinity,
+            //     child: Card(
+            //       elevation: 30,
+            //       color: Colors.black54,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Center(
+            //         child: Text(
+            //           'pushNotification',
+            //           style: TextStyle(fontSize: 20, color: Colors.white),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
