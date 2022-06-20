@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertask/homepage.dart';
-import 'package:get/get.dart';
 
 import 'week9-10/Push notification/push notification.dart';
 
@@ -20,36 +18,20 @@ List<CameraDescription> cameras = [];
 //   print('A bg message just showed up :  ${message.messageId}');
 // }
 
-Future<void> noti(RemoteMessage message) async {
-  print("--------------------------------------------------------------");
-  print(message.notification!.title);
-  await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          //with image from URL
-          id: 1,
-          channelKey: 'fcm',
-          //channel configuration key
-          title: message.notification!.title,
-          body: message.notification!.body,
-          bigPicture: message.notification!.android!.imageUrl.toString(),
-          notificationLayout: NotificationLayout.BigPicture,
-          payload: {"name": "flutter"}));
-}
-
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   print('Handling a background message ${message.messageId}');
   print(message.data);
-  // flutterLocalNotificationsPlugin.show(
-  //     message.data.hashCode,
-  //     message.data['title'],
-  //     message.data['body'],
-  //     NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         channel.id,
-  //         channel.name,
-  //       ),
-  //     ));
+  flutterLocalNotificationsPlugin.show(
+      message.data.hashCode,
+      message.data['title'],
+      message.data['body'],
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+        ),
+      ));
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -83,29 +65,12 @@ Future<void> main() async {
     sound: true,
   );
 
-  FirebaseMessaging.onMessage.listen(noti);
-
   Stripe.publishableKey =
       "pk_test_51KxjzaSCwVxg8MzfxvAXbttahWOqeYCRlc71pGCnhv0zyBR0CGZIDpqRVa0tDNFPkHa23WZzTsMnDnclMKnRs35E00USnYzX4q";
   // await Stripe.instance.applySettings();
   await Firebase.initializeApp();
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
-  await AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-            channelKey: "fcm",
-            channelName: "fcm",
-            channelDescription: 'get cloude notification',
-            channelGroupKey: 'fcm')
-      ],
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupkey: "fcm", channelGroupName: "fcm")
-      ],
-      debug: true);
-  runApp(GetMaterialApp(
+  runApp(MaterialApp(
     home: homepage(),
     navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)],
     debugShowCheckedModeBanner: false,
